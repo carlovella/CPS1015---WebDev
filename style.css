@@ -1,28 +1,56 @@
 h1{
     text-align: center;
+    color: lightgray;
 }
-
+body{
+    font-family: 'Luckiest Guy', cursive;
+    background-color: #1A1124;
+}
+button{
+    background: #E32C2C;
+    border-radius: 5px;
+    text-align: center;
+    font-family: 'Luckiest Guy', cursive;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    color: white;
+}
 .box{
     width: 200px;
     height: 150px;
-    background-color: lightgray;
+    background-color: #2C1A38;
     border: 1px solid black;
+    border-radius: 10px;
     margin: 80px auto;
     padding: 10px;
     box-sizing: border-box;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     text-align: center;
+    color: #D4AF37;
 }
 .upgrades_box{
     width: 200px;
-    height: 250px;
-    background-color: lightgray;
+    height: 320px;
+    background-color: #2C1A38;
     border: 1px solid black;
+    border-radius: 10px;
     margin: 20px;
     padding: 10px;
     box-sizing: border-box;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     text-align: center;
     position: absolute;
     top: 110px;
     left: 10px;
+    display: block;
+    color: white;
 }
-
+.upgrade_section{
+    padding: 10px;
+    text-align: center;
+    color: #D4AF37;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid black;
+    margin-bottom: 20px;
+    background-color: #1A1124;
+}
