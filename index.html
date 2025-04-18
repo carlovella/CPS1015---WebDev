@@ -10,15 +10,15 @@
     <h1>Rise of the Shadow Ninja</h1>
 
     <div class = "box">
-        <p>🌀 Shadows 🌀: <span id = "shadowCounter"></span></p>
-        <p>(Shadows/click: )</p>
-        <p>(Shadows/sec: <span id = "shadowsPerSec"></span></p>
+        <p>🌀 Shadows 🌀: <span id = "shadowCounter">0</span></p>
+        <p class = "altText">Shadows/click: <span id = "shadowsPerClick">0</span></p>
+        <p class = "altText">Shadows/sec: <span id = "shadowsPerSec">0</span></p>
         <button id = "gainShadow">Gain Shadow</button>
     </div>
 
     <div class = "box">
         <p>👻 Phantoms 👻: </p>
-        <p>(Phantoms/sec: )</p>
+        <p class = "altText">Phantoms/sec: </p>
     </div>
 
     <div class = "upgrades_box">
@@ -47,41 +47,36 @@
         <div class = "ninja_grid">
             <div class = "ninja_section">
                 <p> Novice Ninja </p>
-                <p> Amount: </p>
-                <img class = "ninja_png" src="images/Novice%20Ninja.png" alt = "">
-                <button>
-                    <span>Buy</span><br>
-                    <span>Cost: 10 Shadows</span>
+                <p class = "altText"> Amount: <span class = "count">0</span></p>
+                <img class = "ninja_png" src = "images/Novice%20Ninja.png" alt = "Novice Ninja">
+                <button class = "ninja_button" data-type = "novice" title = "Novice: +1 Shadows/Sec">
+                    Hire: <span class = "cost">10</span> Shadows
                 </button>
             </div>
-
             <div class = "ninja_section">
                 <p> Rogue Ninja </p>
-                <p> Amount: </p>
-                <img class = "ninja_png" src="images/Rogue%20Ninja.png" alt = "">
-                <button>
-                    <span>Buy</span><br>
-                    <span>Cost: 100 Shadows</span>
+                <p class = "altText"> Amount: <span class = "count">0</span></p>
+                <img class = "ninja_png" src = "images/Rogue%20Ninja.png" alt = "Rogue Ninja">
+                <button class = "ninja_button" data-type = "rogue" title = "Rogue: +5 Shadows/Sec">
+                    Hire: <span class = "cost">100</span> Shadows
                 </button>
             </div>
 
             <div class = "ninja_section">
                 <p> Elite Ninja </p>
-                <p> Amount: </p>
-                <img class = "ninja_png" src="images/Elite%20Ninja.png" alt = "">
-                <button>
-                    <span>Buy</span><br>
-                    <span>Cost: 1,000 Shadows</span>
+                <p class = "altText"> Amount: <span class = "count">0</span></p>
+                <img class = "ninja_png" src = "images/Elite%20Ninja.png" alt = "Elite Ninja">
+                <button class = "ninja_button" data-type = "elite" title = "Elite: +20 Shadows/Sec">
+                    Hire: <span class = "cost">1,000</span> Shadows
                 </button>
             </div>
 
             <div class = "ninja_section">
                 <p> Grandmaster Ninja </p>
-                <p> Amount: </p>
-                <img class = "ninja_png" src="images/Grandmaster%20Ninja.png" alt = "">
-                <button>
-                    <span>Buy</span><br>
-                    <span>Cost: 10,000 Shadows</span>
+                <p class = "altText"> Amount: <span class = "count">0</span></p>
+                <img class = "ninja_png" src = "images/Grandmaster%20Ninja.png" alt = "Grandmaster Ninja">
+                <button class = "ninja_button" data-type = "grandmaster" title = "Grandmaster: +100 Shadows/Sec">
+                    Hire: <span class = "cost">10,000</span> Shadows
                 </button>
             </div>
         </div>

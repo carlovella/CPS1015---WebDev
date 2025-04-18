@@ -7,8 +7,14 @@ body{
     font-family: 'Luckiest Guy', cursive;
     background-color: #1A1124;
 }
+.altText{
+    text-align: center;
+    color: lightgray;
+    font-size: 18px;
+}
 button{
     background: #E32C2C;
+    border: 1px solid black;
     border-radius: 5px;
     text-align: center;
     font-family: 'Luckiest Guy', cursive;
@@ -18,13 +24,13 @@ button{
 }
 .box{
     width: 250px;
-    height: 200px;
+    height: 250px;
     font-size: 20px;
     background-color: #2C1A38;
     border: 1px solid black;
     border-radius: 10px;
     margin: 80px auto;
-    padding: 10px;
+    padding: 8px 16px;
     box-sizing: border-box;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     text-align: center;
@@ -97,4 +103,23 @@ button{
 .ninja_png{
     width: 150px;
     height: 150px;
+}
+.ninja_button {
+    padding: 8px 16px;
+    background-color: #E32C2C;
+    color: lightgray;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.ninja_button:hover:not(.ghosted) {
+    background-color: #E32C2C;
+}
+
+.ninja_button.ghosted {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #C22525;
 }
