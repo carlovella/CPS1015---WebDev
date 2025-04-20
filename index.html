@@ -9,9 +9,10 @@
 <body>
     <h1>Rise of the Shadow Ninja</h1>
 
+    <!-- Resources -->
     <div class = "box">
         <p>🌀 Shadows 🌀: <span id = "shadowCounter">0</span></p>
-        <p class = "altText">Shadows/click: <span id = "shadowsPerClick">0</span></p>
+        <p class = "altText">Shadows/click: <span id = "shadowsPerClick">1</span></p>
         <p class = "altText">Shadows/sec: <span id = "shadowsPerSec">0</span></p>
         <button id = "gainShadow">Gain Shadow</button>
     </div>
@@ -21,6 +22,7 @@
         <p class = "altText">Phantoms/sec: </p>
     </div>
 
+    <!-- Upgrades -->
     <div class = "upgrades_box">
         <p>⚔️ Upgrades ⚔️</p>
 
@@ -33,14 +35,15 @@
         </div>
 
         <div class = "upgrade_section">
-            <p>Speed </p>
-            <button>
-                <span>Upgrade</span><br>
-                <span>Cost: </span>
+            <p>Speed</p>
+            <p>Level: <span id = "speed_level"></span></p>
+            <button id = "speed_upgrade_button">
+                <span>Upgrade: <span id = "speed_cost">400</span> Shadows</span>
             </button>
         </div>
     </div>
 
+    <!-- Ninjas -->
     <div class = "ninjas_box">
         <p>🥷🏽 Ninjas 🥷🏽</p>
 

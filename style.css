@@ -1,3 +1,4 @@
+/* General */
 h1{
     text-align: center;
     color: lightgray;
@@ -36,6 +37,7 @@ button{
     text-align: center;
     color: #D4AF37;
 }
+/* Upgrades */
 .upgrades_box{
     width: 200px;
     height: auto;
@@ -64,6 +66,25 @@ button{
     margin-bottom: 20px;
     background-color: #1A1124;
 }
+#speed_upgrade_button{
+    padding: 8px 16px;
+    background-color: #E32C2C;
+    color: lightgray;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+#speed_upgrade_button.ghosted{
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #C22525;
+}
+#speed_upgrade_button:hover:not(.ghosted) {
+    background-color: #E32C2C;
+}
+
+/* Ninjas */
 .ninjas_box{
     width: 525px;
     height: auto;
@@ -113,13 +134,11 @@ button{
     cursor: pointer;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-
-.ninja_button:hover:not(.ghosted) {
-    background-color: #E32C2C;
-}
-
 .ninja_button.ghosted {
     opacity: 0.5;
     cursor: not-allowed;
     background-color: #C22525;
+}
+.ninja_button:hover:not(.ghosted) {
+    background-color: #E32C2C;
 }

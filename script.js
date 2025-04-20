@@ -1,11 +1,21 @@
+// Resource variables
 let shadows = 0;
 let shadowsPerClick = 1;
 let shadowsPerSec = 0;
 
+// Upgrade variables
+let speedLevel = 0;
+let speedCost = 400;
+
+// Linkage of scripts
 const gainShadowButton = document.getElementById('gainShadow');
 const shadowCounter = document.getElementById('shadowCounter');
 const shadowsPerSecDisplay = document.getElementById('shadowsPerSec');
 const ninjaHireButtons = document.querySelectorAll('.ninja_button');
+const speedLevelDisplay = document.getElementById('speed_level');
+const speedCostDisplay = document.getElementById('speed_cost');
+const speedUpgradeButton = document.getElementById('speed_upgrade_button');
+const shadowsPerClickDisplay = document.getElementById('shadowsPerClick');
 
 // Ninja Object with different properties
 const ninjas = {
@@ -17,18 +27,25 @@ const ninjas = {
 
 // Update Display
 function updateDisplay(){
+    speedCost = 400 * (speedLevel + 1);
+    shadowsPerClick = 1 + (speedLevel * 2);
+
     shadowCounter.textContent = Math.round(shadows);
     shadowsPerSecDisplay.textContent = shadowsPerSec;
+    speedLevelDisplay.textContent = speedLevel;
+    speedCostDisplay.textContent = speedCost;
+    shadowsPerClickDisplay.textContent = shadowsPerClick;
 
-    // Updating button cost and count display
+
+    // Updating Ninja button cost and count display
     ninjaHireButtons.forEach(button => {
         const type = button.dataset.type;
         const ninja = ninjas[type];
         const cost = button.querySelector('.cost');
-        const amount = button.parentElement.querySelector('.count');
+        const count = button.parentElement.querySelector('.count');
 
         cost.textContent = ninja.cost;
-        amount.textContent = ninja.count;
+        count.textContent = ninja.count;
 
         // If not affordable, Ghost Button
         if(shadows >= ninja.cost){
@@ -39,6 +56,15 @@ function updateDisplay(){
             button.disabled = true;
         }
     })
+
+    // Updating Speed Button
+    if(shadows >= speedCost){
+        speedUpgradeButton.classList.remove('ghosted');
+        speedUpgradeButton.disabled = false;
+    } else{
+        speedUpgradeButton.classList.add('ghosted');
+        speedUpgradeButton.disabled = true;
+    }
 }
 
 // Gain Shadows button
@@ -46,7 +72,15 @@ gainShadowButton.addEventListener('click', function(){
     shadows += shadowsPerClick;
     updateDisplay();
 })
-updateDisplay();
+
+// Upgrade Speed button
+speedUpgradeButton.addEventListener('click', function(){
+    if (shadows >= speedCost){
+        shadows  = shadows - speedCost;
+        speedLevel++;
+        updateDisplay();
+    }
+})
 
 // Passive Shadow gain
 setInterval(() => {
@@ -76,4 +110,5 @@ ninjaHireButtons.forEach(button => {
         }
     });
 })
+updateDisplay();
 updateNinjaStats();
