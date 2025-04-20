@@ -66,7 +66,7 @@ button{
     margin-bottom: 20px;
     background-color: #1A1124;
 }
-#speed_upgrade_button{
+#speed_upgrade_button, #stealth_upgrade_button{
     padding: 8px 16px;
     background-color: #E32C2C;
     color: lightgray;
@@ -75,14 +75,16 @@ button{
     cursor: pointer;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-#speed_upgrade_button.ghosted{
+#speed_upgrade_button:hover:not(.ghosted), #stealth_upgrade_button:hover:not(.ghosted) {
+    background-color: #E32C2C;
+}
+#speed_upgrade_button.ghosted, #speed_upgrade_button.maxed,
+#stealth_upgrade_button.ghosted, #stealth_upgrade_button.maxed {
     opacity: 0.5;
     cursor: not-allowed;
     background-color: #C22525;
 }
-#speed_upgrade_button:hover:not(.ghosted) {
-    background-color: #E32C2C;
-}
+
 
 /* Ninjas */
 .ninjas_box{

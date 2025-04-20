@@ -5,7 +5,11 @@ let shadowsPerSec = 0;
 
 // Upgrade variables
 let speedLevel = 0;
-let speedCost = 400;
+let speedCost = 500;
+let stealthLevel = 0;
+let stealthCost = 500;
+const maxStealthLevel = 10;
+const maxSpeedLevel = 10;
 
 // Linkage of scripts
 const gainShadowButton = document.getElementById('gainShadow');
@@ -16,6 +20,9 @@ const speedLevelDisplay = document.getElementById('speed_level');
 const speedCostDisplay = document.getElementById('speed_cost');
 const speedUpgradeButton = document.getElementById('speed_upgrade_button');
 const shadowsPerClickDisplay = document.getElementById('shadowsPerClick');
+const stealthLevelDisplay = document.getElementById('stealth_level');
+const stealthCostDisplay = document.getElementById('stealth_cost');
+const stealthUpgradeButton = document.getElementById('stealth_upgrade_button');
 
 // Ninja Object with different properties
 const ninjas = {
@@ -27,15 +34,25 @@ const ninjas = {
 
 // Update Display
 function updateDisplay(){
-    speedCost = 400 * (speedLevel + 1);
-    shadowsPerClick = 1 + (speedLevel * 2);
+    shadowsPerClick = 1 + (speedLevel * 5);
+    if (speedLevel < maxSpeedLevel) {
+        speedCost = 500 * (speedLevel + 1);
+    }else {
+        speedCost = 'Maxed';
+    }
+    if (stealthLevel < maxStealthLevel){
+        stealthCost = 500 * (stealthLevel + 1)
+    }else {
+        stealthCost = 'Maxed';
+    }
 
     shadowCounter.textContent = Math.round(shadows);
     shadowsPerSecDisplay.textContent = shadowsPerSec;
     speedLevelDisplay.textContent = speedLevel;
     speedCostDisplay.textContent = speedCost;
     shadowsPerClickDisplay.textContent = shadowsPerClick;
-
+    stealthLevelDisplay.textContent = stealthLevel;
+    stealthCostDisplay.textContent = stealthCost;
 
     // Updating Ninja button cost and count display
     ninjaHireButtons.forEach(button => {
@@ -58,12 +75,27 @@ function updateDisplay(){
     })
 
     // Updating Speed Button
-    if(shadows >= speedCost){
-        speedUpgradeButton.classList.remove('ghosted');
+    if(speedLevel < maxSpeedLevel && shadows >= speedCost){
+        speedUpgradeButton.classList.remove('ghosted', 'maxed');
         speedUpgradeButton.disabled = false;
-    } else{
+    }else{
         speedUpgradeButton.classList.add('ghosted');
         speedUpgradeButton.disabled = true;
+        if(speedLevel >= maxSpeedLevel){
+            speedUpgradeButton.classList.add('maxed');
+        }
+    }
+
+    // Updating Stealth Button
+    if(stealthLevel < maxStealthLevel && shadows >= stealthCost){
+        stealthUpgradeButton.classList.remove('ghosted', 'maxed');
+        stealthUpgradeButton.disabled = false;
+    }else{
+        stealthUpgradeButton.classList.add('ghosted');
+        stealthUpgradeButton.disabled = true;
+        if(stealthLevel >= maxStealthLevel){
+            stealthUpgradeButton.classList.add('maxed');
+        }
     }
 }
 
@@ -75,9 +107,19 @@ gainShadowButton.addEventListener('click', function(){
 
 // Upgrade Speed button
 speedUpgradeButton.addEventListener('click', function(){
-    if (shadows >= speedCost){
+    if (speedLevel < maxSpeedLevel && shadows >= speedCost){
         shadows  = shadows - speedCost;
         speedLevel++;
+        updateDisplay();
+    }
+})
+
+// Upgrade Stealth Button
+stealthUpgradeButton.addEventListener('click', function(){
+    if (stealthLevel < maxStealthLevel && shadows >= stealthCost){
+        shadows = shadows - stealthCost;
+        stealthLevel++;
+        updateNinjaStats();
         updateDisplay();
     }
 })
@@ -92,7 +134,7 @@ setInterval(() => {
 function updateNinjaStats(){
     shadowsPerSec = 0;
     Object.values(ninjas).forEach(ninja => {
-        shadowsPerSec += ninja.count * ninja.sps;
+        shadowsPerSec += ninja.count * ninja.sps * (1 + stealthLevel * 0.1);
     });
     updateDisplay();
 }
