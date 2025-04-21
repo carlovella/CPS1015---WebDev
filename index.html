@@ -11,15 +11,11 @@
 
     <!-- Resources -->
     <div class = "box">
-        <p>🌀 Shadows 🌀: <span id = "shadowCounter">0</span></p>
+        <p>🌀 Shadows 🌀: </p>
+        <p id = "shadowCounter">0</p>
         <p class = "altText">Shadows/click: <span id = "shadowsPerClick">1</span></p>
         <p class = "altText">Shadows/sec: <span id = "shadowsPerSec">0</span></p>
         <button id = "gainShadow">Gain Shadow</button>
-    </div>
-
-    <div class = "box">
-        <p>👻 Phantoms 👻: </p>
-        <p class = "altText">Phantoms/sec: </p>
     </div>
 
     <!-- Upgrades -->
@@ -41,6 +37,29 @@
                 <span>Upgrade: <span id = "stealth_cost">500</span> Shadows</span>
             </button>
         </div>
+    </div>
+
+    <!-- Prestige -->
+    <div class = "prestige_section">
+        <p>👻 Phantoms 👻: <span id = "phantomCounter">0</span></p>
+        <p id = "progressText"> Shadows to next Phantom: 0/500000 (0%)</p>
+        <div id = "progressBox">
+            <div id = "progressBar"></div>
+        </div>
+        <div class = "tiers">
+            <p>Tiers: </p>
+            <p>Tier 1: +50% Ninja Shadows per Second </p>
+            <button id = "tier1Button"> Buy: 1 Phantom</button>
+            <p>Tier 2: Phantoms Cost 20% less to gain </p>
+            <button id = "tier2Button"> Buy: 2 Phantoms</button>
+            <p>Tier 3: +50% Shadows per Click Value </p>
+            <button id = "tier3Button"> Buy: 3 Phantoms</button>
+            <p>Tier 4: Upgrades Cost 30% less</p>
+            <button id = "tier4Button"> Buy: 4 Phantoms</button>
+            <p>Tier 5: Ninjas Cost 30% less </p>
+            <button id = "tier5Button"> Buy: 5 Phantoms</button>
+        </div>
+
     </div>
 
     <!-- Ninjas -->
