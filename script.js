@@ -1,9 +1,9 @@
 // Resource variables
 let shadows = 0;
 let shadowsPerClick = 1;
-let shadowsPerSec = 0;
+let shadowsPerSec = 0; // Shadows per second from ninjas
 let phantoms = 0;
-let nextPhantomThreshold = 500000;
+let nextPhantomThreshold = 500000; // Shadows needed for next phantom
 
 // Counters for Achievements
 let lifetimeShadows = 0;
@@ -24,7 +24,7 @@ let  tier2Purchased = false;
 let  tier3Purchased = false;
 let  tier4Purchased = false;
 let  tier5Purchased = false;
-const phantomCostIncrement = 500000;
+const phantomCostIncrement = 500000; // Cost increment for phantoms
 
 // Achievements Structure
 const achievements = {
@@ -79,7 +79,7 @@ const achievements = {
         completed: false
     }
 };
-// Linkage of scripts
+// DOM elements for UI (Linkage of scripts)
 const gainShadowButton = document.getElementById('gainShadow');
 const shadowCounter = document.getElementById('shadowCounter');
 const shadowsPerSecDisplay = document.getElementById('shadowsPerSec');
@@ -108,13 +108,13 @@ const ninjas = {
     grandmaster: { baseCost: 10000, cost: 10000, increment:5000, sps: 100, count: 0},
 }
 
-// Show achievement popup
+// Show achievement popup when achievement unlocked
 function showAchievementPopup(achievementName) {
     const popup = document.getElementById("achievement-popup");
-    const popupText = document.getElementById("achievement_text");
+    const popupText = document.getElementById("achievement_text"); // Text inside pop-up
     popupText.textContent = `Achievement Unlocked: ${achievementName}`;
-    popup.classList.remove("active");
-    // Reset animation
+    popup.classList.remove("active"); // Remove animation
+    // Restart animation
     void popup.offsetWidth;
     popup.classList.add("active");
 }
@@ -123,14 +123,14 @@ function showAchievementPopup(achievementName) {
 function updateAchievements(){
     const achievementItems = document.querySelectorAll('.achievement_item');
     achievementItems.forEach(item => {
-        const id = item.getAttribute("id");
-        const achievementData = achievements[id];
+        const id = item.getAttribute("id"); // Get achievement id
+        const achievementData = achievements[id]; // Get achievement data
         const status = item.querySelector('.status');
         if(achievementData.completed){
-            item.classList.add('completed');
+            item.classList.add('completed'); // Unlock achievement
             status.textContent = "Unlocked";
         }else {
-            item.classList.remove('completed');
+            item.classList.remove('completed'); // Remove completed if not completed
             status.textContent = "Locked";
         }
     })
@@ -138,6 +138,7 @@ function updateAchievements(){
 
 // Check if achievements have been completed
 function checkAchievements(){
+    // Check condition for achievement and make sure it is not yet completed
     // Shadow Collector I, II, III
     if(lifetimeShadows >= 1000 && !achievements.shadowCollectorI.completed){
         achievements.shadowCollectorI.completed = true;
@@ -194,7 +195,7 @@ function checkAchievements(){
 }
 // Calculate cost for next Phantom
 function getPhantomCost(){
-    let baseCost = phantomCostIncrement;
+    let baseCost = phantomCostIncrement; // Base cost for phantom
     // Applying 20% discount if Tier 2 is purchased
     if (tier2Purchased){
         baseCost = baseCost * 0.8;
@@ -206,21 +207,20 @@ function getPhantomCost(){
 function updatePhantoms(){
     let costPerPhantom = getPhantomCost();
 
-    // Check current shadows against threshold
+    // Check if there is enough shadows for phantom
     while(shadows >= nextPhantomThreshold){
         phantoms++;
         lifetimePhantoms++;
-        // Increase threshold
+        // Increase threshold for next phantom
         nextPhantomThreshold = nextPhantomThreshold + costPerPhantom;
         checkAchievements();
     }
-    phantomCounter.textContent = phantoms;
+    phantomCounter.textContent = phantoms; // Update phantom counter
 }
 
 // Update Display
 function updateDisplay(){
-
-    // Calculate Click Value
+    // Calculate Click Value based on Speed upgrade
     shadowsPerClick = 1 + (speedLevel * 5);
     // 50% increase if Tier 3 is purchased
     if(tier3Purchased){
@@ -257,6 +257,7 @@ function updateDisplay(){
     phantomProgressText.textContent = currentShadows + '/' + phantomCostRounded + ' (' + percentageRounded + '%)';
     phantomProgressBar.style.width = percentageRounded + '%';
 
+    // Update Resource and Upgrades Display
     shadowCounter.textContent = Math.round(shadows);
     shadowsPerSecDisplay.textContent = shadowsPerSec;
     speedLevelDisplay.textContent = speedLevel;
@@ -266,13 +267,14 @@ function updateDisplay(){
     stealthCostDisplay.textContent = stealthCost;
     phantomCounter.textContent = phantoms;
 
-    // Updating Ninja button cost and count display
+    // Updating Ninja cost and count buttons and displays
     ninjaHireButtons.forEach(button => {
         const type = button.dataset.type;
         const ninja = ninjas[type];
         const cost = button.querySelector('.cost');
         const count = button.parentElement.querySelector('.count');
 
+        // Update UI
         cost.textContent = ninja.cost;
         count.textContent = ninja.count;
 
@@ -291,7 +293,7 @@ function updateDisplay(){
         speedUpgradeButton.classList.remove('ghosted', 'maxed');
         speedUpgradeButton.disabled = false;
     }else{
-        speedUpgradeButton.classList.add('ghosted');
+        speedUpgradeButton.classList.add('ghosted'); // Make button ghosted
         speedUpgradeButton.disabled = true;
         if(speedLevel >= maxSpeedLevel){
             speedUpgradeButton.classList.add('maxed');
@@ -303,7 +305,7 @@ function updateDisplay(){
         stealthUpgradeButton.classList.remove('ghosted', 'maxed');
         stealthUpgradeButton.disabled = false;
     }else{
-        stealthUpgradeButton.classList.add('ghosted');
+        stealthUpgradeButton.classList.add('ghosted'); // Make button ghosted
         stealthUpgradeButton.disabled = true;
         if(stealthLevel >= maxStealthLevel){
             stealthUpgradeButton.classList.add('maxed');
@@ -311,7 +313,7 @@ function updateDisplay(){
     }
 
     // Updating Tier 1 button
-    if (phantoms >= 1 && !tier1Purchased){
+    if (phantoms >= 1 && !tier1Purchased){ // Check condition and make sure it is not purchased
         tier1Button.classList.remove('ghosted', 'maxed');
         tier1Button.disabled = false;
     }else {
@@ -324,7 +326,7 @@ function updateDisplay(){
     }
 
     // Updating Tier 2 button
-    if (phantoms >= 2 && !tier2Purchased){
+    if (phantoms >= 2 && !tier2Purchased){ // Check condition and make sure it is not purchased
         tier2Button.classList.remove('ghosted', 'maxed');
         tier2Button.disabled = false;
     }else {
@@ -337,7 +339,7 @@ function updateDisplay(){
     }
 
     // Updating Tier 3 button
-    if (phantoms >= 3 && !tier3Purchased){
+    if (phantoms >= 3 && !tier3Purchased){ // Check condition and make sure it is not purchased
         tier3Button.classList.remove('ghosted', 'maxed');
         tier3Button.disabled = false;
     }else {
@@ -350,7 +352,7 @@ function updateDisplay(){
     }
 
     // Updating Tier 4 button
-    if (phantoms >= 4 && !tier4Purchased){
+    if (phantoms >= 4 && !tier4Purchased){ // Check condition and make sure it is not purchased
         tier4Button.classList.remove('ghosted', 'maxed');
         tier4Button.disabled = false;
     }else {
@@ -363,7 +365,7 @@ function updateDisplay(){
     }
 
     // Updating Tier 5 button
-    if (phantoms >= 5 && !tier5Purchased){
+    if (phantoms >= 5 && !tier5Purchased){ // Check condition and make sure it is not purchased
         tier5Button.classList.remove('ghosted', 'maxed');
         tier5Button.disabled = false;
     }else {
@@ -389,7 +391,7 @@ gainShadowButton.addEventListener('click', function(){
 // Upgrade Speed button
 speedUpgradeButton.addEventListener('click', function(){
     if (speedLevel < maxSpeedLevel && shadows >= speedCost){
-        shadows  = shadows - speedCost;
+        shadows  = shadows - speedCost; // Deduct cost
         speedLevel++;
         updatePhantoms();
         updateDisplay();
@@ -400,7 +402,7 @@ speedUpgradeButton.addEventListener('click', function(){
 // Upgrade Stealth Button
 stealthUpgradeButton.addEventListener('click', function(){
     if (stealthLevel < maxStealthLevel && shadows >= stealthCost){
-        shadows = shadows - stealthCost;
+        shadows = shadows - stealthCost; // Deduct cost
         stealthLevel++;
         updatePhantoms();
         updateNinjaStats();
@@ -411,13 +413,7 @@ stealthUpgradeButton.addEventListener('click', function(){
 
 // Tier 1 Button
 tier1Button.addEventListener('click', function(){
-    if(phantoms < 1){
-        return;
-    }
-    if(tier1Purchased){
-        return;
-    }
-    let userConfirmation = confirm('Buy Tier 1: +50% Ninja SPS (Shadows Per Second) and Reset?');
+    let userConfirmation = confirm('Buy Tier 1: Reset and Gain +50% Ninja SPS (Shadows Per Second)');
     if(userConfirmation){
         phantoms = phantoms - 1;
         tier1Purchased = true;
@@ -440,13 +436,7 @@ tier1Button.addEventListener('click', function(){
 
 // Tier 2 Button
 tier2Button.addEventListener('click', function(){
-    if(phantoms < 2){
-        return;
-    }
-    if(tier2Purchased){
-        return;
-    }
-    let userConfirmation = confirm('Buy Tier 2: -20% Phantom Cost for next Phantom and Reset?');
+    let userConfirmation = confirm('Buy Tier 2: Reset and Gain -20% Phantom Cost for next Phantom');
     if(userConfirmation){
         phantoms = phantoms - 2;
         tier2Purchased = true;
@@ -469,13 +459,7 @@ tier2Button.addEventListener('click', function(){
 
 // Tier 3 Button
 tier3Button.addEventListener('click', function(){
-    if(phantoms < 3){
-        return;
-    }
-    if(tier3Purchased){
-        return;
-    }
-    let userConfirmation = confirm('Buy Tier 3: +50% Click Value (Shadows per Click) and Reset?');
+    let userConfirmation = confirm('Buy Tier 3: Reset and Gain +50% Click Value (Shadows per Click)');
     if(userConfirmation){
         phantoms = phantoms - 3;
         tier3Purchased = true;
@@ -498,13 +482,7 @@ tier3Button.addEventListener('click', function(){
 
 // Tier 4 Button
 tier4Button.addEventListener('click', function(){
-    if(phantoms < 4){
-        return;
-    }
-    if(tier4Purchased){
-        return;
-    }
-    let userConfirmation = confirm('Buy Tier 4: -30% Upgrade Costs and Reset?');
+    let userConfirmation = confirm('Buy Tier 4: Reset and Gain -30% Upgrade Costs');
     if(userConfirmation){
         phantoms = phantoms - 4;
         tier4Purchased = true;
@@ -527,13 +505,7 @@ tier4Button.addEventListener('click', function(){
 
 // Tier 5 Button
 tier5Button.addEventListener('click', function(){
-    if(phantoms < 5){
-        return;
-    }
-    if(tier5Purchased){
-        return;
-    }
-    let userConfirmation = confirm('Buy Tier 5: Ninja Cost 30% less and Reset?');
+    let userConfirmation = confirm('Buy Tier 5: Reset and Gain -30% Ninja Costs');
     if(userConfirmation){
         phantoms = phantoms - 5;
         tier5Purchased = true;
@@ -562,12 +534,13 @@ setInterval(() => {
     updatePhantoms();
     updateDisplay();
     checkAchievements();
-}, 100);
+}, 100); // Update every 100ms
 
 // Update Ninja Statistics
 function updateNinjaStats(){
     shadowsPerSec = 0;
     Object.values(ninjas).forEach(ninja => {
+        // Calculate shadows per second
         shadowsPerSec += ninja.count * ninja.sps * (1 + stealthLevel * 0.1) * (tier1Purchased ? 1.5 : 1);
     });
     updateDisplay();
@@ -576,13 +549,13 @@ function updateNinjaStats(){
 // Ninja Hiring
 ninjaHireButtons.forEach(button => {
     button.addEventListener('click', () => {
-        const type = button.dataset.type;
-        const ninja = ninjas[type];
-        if (shadows >= ninja.cost){
+        const type = button.dataset.type; // Get ninja type
+        const ninja = ninjas[type]; // Get ninja data
+        if (shadows >= ninja.cost){ // Hire ninja if affordable
             shadows -= ninja.cost;
             ninja.count ++;
             lifetimeNinjasHired++;
-            let baseNinjaCost = ninja.baseCost + (ninja.increment * ninja.count);
+            let baseNinjaCost = ninja.baseCost + (ninja.increment * ninja.count); // Calculate cost for next ninja
             // Apply 30% discount if Tier 5 is purchased
             if(tier5Purchased){
                 ninja.cost = baseNinjaCost * 0.7;
@@ -590,6 +563,7 @@ ninjaHireButtons.forEach(button => {
                 ninja.cost = baseNinjaCost;
             }
 
+            // Trigger pulse animation
             const ninjaSection = button.closest('.ninja_section');
             ninjaSection.classList.remove('pulse'); // Remove existing animation
             void ninjaSection.offsetWidth; // Restart the animation
@@ -603,11 +577,11 @@ ninjaHireButtons.forEach(button => {
     });
 })
 
-// Toggle Achievements Dropdown
+// Toggle Achievements list
 const achievementButton = document.getElementById("achievements_button");
 achievementButton.addEventListener("click", () => {
     const achievementsList = document.getElementById("achievements");
-    achievementsList.classList.toggle("active");
+    achievementsList.classList.toggle("active"); // Make list visible
 });
 
 updateDisplay();

@@ -11,6 +11,14 @@ body{
     background-color: #1A1124;
     padding: 20px;
 }
+.container{
+    display: block;
+    position: relative;
+    min-height: 460px;
+    margin-top: 0;
+}
+
+/* Text */
 .altText{
     text-align: center;
     color: lightgray;
@@ -22,7 +30,16 @@ body{
 .ninja_section .altText{
     font-size: 16px;
 }
-button{
+
+/* Shared Button Styles */
+button, .ninja_button,
+#speed_upgrade_button,
+#stealth_upgrade_button,
+#tier1Button,
+#tier2Button,
+#tier3Button,
+#tier4Button,
+#tier5Button{
     background: #E32C2C;
     border: 1px solid black;
     border-radius: 5px;
@@ -37,25 +54,49 @@ button{
     block-size: 50px;
     cursor: pointer;
 }
-.box{
-    width: 300px;
-    height: 300px;
+/* Ghosted and Maxed Button States */
+.ninja_button.ghosted,
+#speed_upgrade_button.ghosted,
+#speed_upgrade_button.maxed,
+#stealth_upgrade_button.ghosted,
+#stealth_upgrade_button.maxed,
+#prestigeButton.maxed,
+#tier1Button.ghosted,
+#tier1Button.maxed,
+#tier2Button.ghosted,
+#tier2Button.maxed,
+#tier3Button.ghosted,
+#tier3Button.maxed,
+#tier4Button.ghosted,
+#tier4Button.maxed,
+#tier5Button.ghosted,
+#tier5Button.maxed {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #C22525;
+}
+
+/* General Box Styles */
+.box,
+.upgrades_box,
+.ninjas_box,
+.phantoms_box,
+.tiers-box{
     font-size: 22px;
     background-color: #2C1A38;
     border: 1px solid black;
     border-radius: 10px;
-    margin: 20px auto;
     padding: 8px 16px;
     box-sizing: border-box;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     text-align: center;
     color: #D4AF37;
 }
-.container{
-    display: block;
-    position: relative;
-    min-height: 460px;
-    margin-top: 0;
+/* Shadows box */
+.box{
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
 }
 
 /* Achievements List */
@@ -73,7 +114,6 @@ button{
     font-size: 14px;
     color: white;
     cursor: pointer;
-
 }
 #achievements{
     display: none;
@@ -101,11 +141,8 @@ button{
 .achievement_item.completed {
     background-color: #3A2A48;
 }
-.achievement_item:last-child {
-    margin-bottom: 0;
-}
 .achievement_item p {
-    display: inline;
+    display: inline; /* Does not start new line */
     margin: 0;
     font-weight: bold;
     color: #D4AF37;
@@ -126,12 +163,13 @@ button{
     font-size: 18px;
     text-align: center;
     opacity: 0;
-    z-index: 100;
+    z-index: 100; /* To appear on top */
+}
+#achievement-popup.active {
+    animation: popup 5s ease-out forwards; /* Pop-up length is 5 seconds */
 }
 
-#achievement-popup.active {
-    animation: popup 5s ease-out forwards;
-}
+/* Pop-up animation */
 @keyframes popup {
     0% {
         opacity: 0;
@@ -150,6 +188,7 @@ button{
         transform: translate(-50%, -50%) scale(0.8);
     }
 }
+
 /* Desktop Layout */
 .upgrades-section{
     position: absolute;
@@ -171,15 +210,6 @@ button{
     width: 300px;
     height: 230px;
     top: 470px;
-    font-size: 22px;
-    color: #D4AF37;
-    background-color: #2C1A38;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    text-align: center;
     margin: 10px auto;
 }
 .tiers-box{
@@ -189,14 +219,6 @@ button{
     top: 400px;
     left: 170px;
     font-size: 18px;
-    color: #D4AF37;
-    background-color: #2C1A38;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    text-align: center;
 }
 
 /* Upgrades */
@@ -204,14 +226,8 @@ button{
     width: 450px;
     height: 390px;
     font-size: 16px;
-    background-color: #2C1A38;
-    border: 1px solid black;
-    border-radius: 10px;
     margin: 0 20px 20px 20px;
     padding: 8px;
-    box-sizing: border-box;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    text-align: center;
     color: white;
 }
 .upgrade_section{
@@ -227,21 +243,6 @@ button{
 #speed_upgrade_button, #stealth_upgrade_button{
     padding: 4px 8px;
     font-size: 14px;
-    background-color: #E32C2C;
-    color: lightgray;
-    border: 1px solid black;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-#speed_upgrade_button:hover:not(.ghosted), #stealth_upgrade_button:hover:not(.ghosted) {
-    background-color: #E32C2C;
-}
-#speed_upgrade_button.ghosted, #speed_upgrade_button.maxed,
-#stealth_upgrade_button.ghosted, #stealth_upgrade_button.maxed {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: #C22525;
 }
 
 /* Ninjas */
@@ -249,17 +250,11 @@ button{
     width: 600px;
     height: 840px;
     font-size: 20px;
-    background-color: #2C1A38;
-    border: 1px solid black;
-    border-radius: 10px;
     padding: 10px;
-    box-sizing: border-box;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    text-align: center;
     color: white;
 }
 .ninja_section{
-    width: calc(50% - 10px);
+    width: calc(50% - 10px); /* Dynamically calculate width */
     padding: 10px;
     text-align: center;
     color: #D4AF37;
@@ -280,6 +275,7 @@ button{
     width: 150px;
     height: 150px;
 }
+/* Pulse animation when hiring ninjas */
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -294,27 +290,12 @@ button{
         box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     }
 }
-
 .ninja_section.pulse {
     animation: pulse 0.5s ease-in-out;
-(prefers-color);
 }
 .ninja_button {
     padding: 8px 16px;
-    background-color: #E32C2C;
-    color: lightgray;
-    border: 1px solid black;
-    border-radius: 5px;
-    cursor: pointer;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-.ninja_button.ghosted {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: #C22525;
-}
-.ninja_button:hover:not(.ghosted) {
-    background-color: #E32C2C;
 }
 
 /* Tiers */
@@ -360,25 +341,12 @@ button{
     gap: 8px;
 }
 #tier1Button, #tier2Button, #tier3Button, #tier4Button, #tier5Button{
-    background-color: #E32C2C;
-    color: lightgray;
     border: none;
     padding: 4px 8px;
     margin: 5px;
-    cursor: pointer;
     border-radius: 3px;
 }
-#prestigeButton.maxed, #tier1Button.ghosted, #tier1Button.maxed,
-#tier2Button.ghosted, #tier2Button.maxed, #tier3Button.ghosted, #tier3Button.maxed,
-#tier4Button.ghosted, #tier4Button.maxed, #tier5Button.ghosted, #tier5Button.maxed {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: #C22525;
-}
-#tier1Button:hover:not(.ghosted), #tier2Button:hover:not(.ghosted),
-#tier3Button:hover:not(.ghosted), #tier4Button:hover:not(.ghosted), #tier5Button:hover:not(.ghosted){
-    background-color: #E32C2C;
-}
+
 #progressBox{
     width: 100%;
     height: 20px;
@@ -402,7 +370,9 @@ button{
         flex-direction: column;
         align-items: center;
     }
-    .box, .upgrades_box, .ninjas_box, .phantoms_box, .tiers-box{
+    .box, .upgrades_box,
+    .ninjas_box, .phantoms_box,
+    .tiers-box{
         width: 100%;
         max-width: 400px;
         margin: 10px auto;
@@ -426,7 +396,9 @@ button{
     .altText, #progressText{
         font-size: 14px;
     }
-    button, .ninja_button, #speed_upgrade_button, #stealth_upgrade_button,
+    button, .ninja_button,
+    #speed_upgrade_button,
+    #stealth_upgrade_button,
     #tier1Button, #tier2Button, #tier3Button, #tier4Button, #tier5Button {
         padding: 6px 12px;
         font-size: 13px;
