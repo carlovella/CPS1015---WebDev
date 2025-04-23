@@ -57,6 +57,99 @@ button{
     min-height: 460px;
     margin-top: 0;
 }
+
+/* Achievements List */
+.achievements-container{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+#achievements_button{
+    background: #E32C2C;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+
+}
+#achievements{
+    display: none;
+    position: absolute;
+    top: 40px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #2C1A38;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    color: #D4AF37;
+    font-size: 14px;
+}
+#achievements.active{
+    display: block;
+}
+.achievement_item {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #1A1124;
+}
+.achievement_item.completed {
+    background-color: #3A2A48;
+}
+.achievement_item:last-child {
+    margin-bottom: 0;
+}
+.achievement_item p {
+    display: inline;
+    margin: 0;
+    font-weight: bold;
+    color: #D4AF37;
+}
+
+/* Achievement Popup */
+#achievement-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2C1A38;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    color: #D4AF37;
+    font-size: 18px;
+    text-align: center;
+    opacity: 0;
+    z-index: 100;
+}
+
+#achievement-popup.active {
+    animation: popup 5s ease-out forwards;
+}
+@keyframes popup {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    80% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
 /* Desktop Layout */
 .upgrades-section{
     position: absolute;
@@ -186,6 +279,25 @@ button{
 .ninja_png{
     width: 150px;
     height: 150px;
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(227, 44, 44, 0.5);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.ninja_section.pulse {
+    animation: pulse 0.5s ease-in-out;
+(prefers-color);
 }
 .ninja_button {
     padding: 8px 16px;
@@ -340,5 +452,18 @@ button{
     .ninja_png{
         width: 100px;
         height: 100px;
+    }
+    #achievements{
+        width: 250px;
+        max-height: 300px;
+        font-size: 12px;
+    }
+    #achievements_button{
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+    #achievement-popup{
+        font-size: 16px;
+        padding: 10px;
     }
 }

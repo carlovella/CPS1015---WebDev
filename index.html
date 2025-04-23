@@ -8,6 +8,50 @@
     <link href = "https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel = "stylesheet" >
 </head>
 <body>
+    <!-- Achievements List -->
+    <div class = "achievements-container">
+        <button id = "achievements_button"> 🏆 Achievements 🏆</button>
+        <div id = "achievements">
+            <!-- Achievements -->
+            <div class = "achievement_item" id = "shadowCollectorI">
+                <p>Shadow Collector I:</p> Collect 1,000 Shadows (<span class = "status">Locked</span>)
+            </div>
+            <div class = "achievement_item" id = "shadowCollectorII">
+                <p>Shadow Collector II:</p> Collect 100,000 Shadows (<span class = "status">Locked</span>)
+            </div>
+            <div class = "achievement_item" id = "shadowCollectorIII">
+                <p>Shadow Collector III:</p> Collect 10,000,000 Shadows (<span class = "status">Locked</span>)
+            </div>
+            <div class = "achievement_item" id = "phantomSeeker">
+                <p>Phantom Seeker:</p> Collect 3 Phantoms (<span class = "status">Locked</span>)
+            </div>
+            <div class = "achievement_item" id = "ninjaRecruiterI">
+                <p>Ninja Recruiter I:</p> Hire 10 ninjas (<span class = "status">Locked</span>)
+            </div>
+            <div class = "achievement_item" id = "ninjaRecruiterII">
+                <p>Ninja Recruiter II:</p> Hire 50 ninjas (<span class = "status">Locked</span>)
+            </div>
+            <div class = "achievement_item" id = "ninjaRecruiterIII">
+                <p>Ninja Recruiter III:</p> Hire 100 ninjas (<span class = "status">Locked</span>)
+            </div>
+            <div class = "achievement_item" id = "speedStalker">
+                <p>Speed Stalker:</p> Max the Speed upgrade (<span class = "status">Locked</span>)
+            </div>
+            <div class = "achievement_item" id = "stealthMaster">
+                <p>Stealth Master:</p> Max the Stealth upgrade (<span class = "status">Locked</span>)
+            </div>
+            <div class = "achievement_item" id = "shadowRebirth">
+                <p>Shadow Rebirth:</p> Prestige for the first time (<span class = "status">Locked</span>)
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Achievements Popup -->
+    <div id = "achievement-popup">
+        <span id = "achievement_text"></span>
+    </div>
+
     <h1>Rise of the Shadow Ninja</h1>
 
     <div class = "container">
@@ -33,6 +77,8 @@
         <div class = "ninjas_box ninjas-section">
             <p>🥷🏽 Ninjas 🥷🏽</p>
             <div class = "ninja_grid">
+
+                <!-- Novice Ninja -->
                 <div class = "ninja_section">
                     <p> Novice Ninja </p>
                     <p class = "altText">(+1 Shadow/Sec)</p>
@@ -42,6 +88,8 @@
                         Hire: <span class = "cost">10</span> Shadows
                     </button>
                 </div>
+
+                <!-- Rogue Ninja -->
                 <div class = "ninja_section">
                     <p> Rogue Ninja </p>
                     <p class = "altText">(+5 Shadows/Sec)</p>
@@ -52,6 +100,7 @@
                     </button>
                 </div>
 
+                <!-- Elite Ninja -->
                 <div class = "ninja_section">
                     <p> Elite Ninja </p>
                     <p class = "altText">(+20 Shadows/Sec)</p>
@@ -62,6 +111,7 @@
                     </button>
                 </div>
 
+                <!-- Grandmaster Ninja -->
                 <div class = "ninja_section">
                     <p> Grandmaster Ninja </p>
                     <p class = "altText">(+100 Shadows/Sec)</p>
@@ -78,6 +128,7 @@
         <div class = "upgrades_box upgrades-section">
             <p>⚔️ Upgrades ⚔️</p>
 
+            <!-- Speed -->
             <div class = "upgrade_section">
                 <p>Speed</p>
                 <p class = "altText">(+5 Shadows/CLick)</p>
@@ -87,6 +138,7 @@
                 </button>
             </div>
 
+            <!-- Stealth -->
             <div class = "upgrade_section">
                 <p>Stealth</p>
                 <p class = "altText">(+10% Ninja Shadows/Sec)</p>
@@ -102,18 +154,23 @@
             <div class = "tiers">
                 <p>🌟 Prestige Tiers 🌟 </p>
                 <div class = "tiers-grid">
+                    <!-- Tier 1 -->
                     <div class = "prestige_section">Tier 1: +50% Ninja Shadows/Sec
                         <button id = "tier1Button"> Buy: 1 Phantom</button>
                     </div>
+                    <!-- Tier 2 -->
                     <div class = "prestige_section">Tier 2: 20% Faster Phantom Gain
                         <button id = "tier2Button"> Buy: 2 Phantoms</button>
                     </div>
+                    <!-- Tier 3 -->
                     <div class = "prestige_section">Tier 3: +50% Shadows/Click
                         <button id = "tier3Button"> Buy: 3 Phantoms</button>
                     </div>
+                    <!-- Tier 4 -->
                     <div class = "prestige_section">Tier 4: Upgrades Cost 30% less
                         <button id = "tier4Button"> Buy: 4 Phantoms</button>
                     </div>
+                    <!-- Tier 5 -->
                     <div class = "prestige_section">Tier 5: Ninjas Cost 30% less
                         <button id = "tier5Button"> Buy: 5 Phantoms</button>
                     </div>

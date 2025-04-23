@@ -5,6 +5,11 @@ let shadowsPerSec = 0;
 let phantoms = 0;
 let nextPhantomThreshold = 500000;
 
+// Counters for Achievements
+let lifetimeShadows = 0;
+let lifetimePhantoms = 0;
+let lifetimeNinjasHired = 0;
+
 // Upgrade variables
 let speedLevel = 0;
 let speedCost = 500;
@@ -21,6 +26,59 @@ let  tier4Purchased = false;
 let  tier5Purchased = false;
 const phantomCostIncrement = 500000;
 
+// Achievements Structure
+const achievements = {
+    shadowCollectorI: {
+        name: "Shadow Collector I",
+        description: "Collect 1,000 Shadows",
+        completed: false
+    },
+    shadowCollectorII: {
+        name: "Shadow Collector II",
+        description: "Collect 100,000 Shadows",
+        completed: false
+    },
+    shadowCollectorIII: {
+        name: "Shadow Collector III",
+        description: "Collect 10,000,000 Shadows",
+        completed: false
+    },
+    phantomSeeker: {
+        name: "Phantom Seeker",
+        description: "Collect 3 Phantoms",
+        completed: false
+    },
+    ninjaRecruiterI: {
+        name: "Ninja Recruiter I",
+        description: "Hire 10 ninjas",
+        completed: false
+    },
+    ninjaRecruiterII: {
+        name: "Ninja Recruiter II",
+        description: "Hire 50 ninjas",
+        completed: false
+    },
+    ninjaRecruiterIII: {
+        name: "Ninja Recruiter III",
+        description: "Hire 100 ninjas",
+        completed: false
+    },
+    speedStalker: {
+        name: "Speed Stalker",
+        description: "Max the Speed upgrade",
+        completed: false
+    },
+    stealthMaster: {
+        name: "Stealth Master",
+        description: "Max the Stealth upgrade",
+        completed: false
+    },
+    shadowRebirth: {
+        name: "Shadow Rebirth",
+        description: "Prestige for the first time",
+        completed: false
+    }
+};
 // Linkage of scripts
 const gainShadowButton = document.getElementById('gainShadow');
 const shadowCounter = document.getElementById('shadowCounter');
@@ -50,6 +108,90 @@ const ninjas = {
     grandmaster: { baseCost: 10000, cost: 10000, increment:5000, sps: 100, count: 0},
 }
 
+// Show achievement popup
+function showAchievementPopup(achievementName) {
+    const popup = document.getElementById("achievement-popup");
+    const popupText = document.getElementById("achievement_text");
+    popupText.textContent = `Achievement Unlocked: ${achievementName}`;
+    popup.classList.remove("active");
+    // Reset animation
+    void popup.offsetWidth;
+    popup.classList.add("active");
+}
+
+// Update Achievements list
+function updateAchievements(){
+    const achievementItems = document.querySelectorAll('.achievement_item');
+    achievementItems.forEach(item => {
+        const id = item.getAttribute("id");
+        const achievementData = achievements[id];
+        const status = item.querySelector('.status');
+        if(achievementData.completed){
+            item.classList.add('completed');
+            status.textContent = "Unlocked";
+        }else {
+            item.classList.remove('completed');
+            status.textContent = "Locked";
+        }
+    })
+}
+
+// Check if achievements have been completed
+function checkAchievements(){
+    // Shadow Collector I, II, III
+    if(lifetimeShadows >= 1000 && !achievements.shadowCollectorI.completed){
+        achievements.shadowCollectorI.completed = true;
+        showAchievementPopup(achievements.shadowCollectorI.name);
+    }
+    if(lifetimeShadows >= 100000 && !achievements.shadowCollectorII.completed){
+        achievements.shadowCollectorII.completed = true;
+        showAchievementPopup(achievements.shadowCollectorII.name);
+    }
+    if(lifetimeShadows >= 10000000 && !achievements.shadowCollectorIII.completed){
+        achievements.shadowCollectorIII.completed = true;
+        showAchievementPopup(achievements.shadowCollectorIII.name);
+    }
+
+    // Phantom Seeker
+    if (lifetimePhantoms >= 3 && !achievements.phantomSeeker.completed) {
+        achievements.phantomSeeker.completed = true;
+        showAchievementPopup(achievements.phantomSeeker.name);
+    }
+
+    // Ninja Recruiter I, II, III
+    if (lifetimeNinjasHired >= 10 &&!achievements.ninjaRecruiterI.completed) {
+        achievements.ninjaRecruiterI.completed = true;
+        showAchievementPopup(achievements.ninjaRecruiterI.name);
+    }
+    if (lifetimeNinjasHired >= 50 && !achievements.ninjaRecruiterII.completed) {
+        achievements.ninjaRecruiterII.completed = true;
+        showAchievementPopup(achievements.ninjaRecruiterII.name);
+    }
+    if (lifetimeNinjasHired >= 100 && !achievements.ninjaRecruiterIII.completed) {
+        achievements.ninjaRecruiterIII.completed = true;
+        showAchievementPopup(achievements.ninjaRecruiterIII.name);
+    }
+
+    // Speed Stalker
+    if (speedLevel >= maxSpeedLevel && !achievements.speedStalker.completed) {
+        achievements.speedStalker.completed = true;
+        showAchievementPopup(achievements.speedStalker.name);
+    }
+
+    // Stealth Master
+    if (stealthLevel >= maxStealthLevel && !achievements.stealthMaster.completed) {
+        achievements.stealthMaster.completed = true;
+        showAchievementPopup(achievements.stealthMaster.name);
+    }
+
+    // Shadow Rebirth
+    if (tier1Purchased && !achievements.shadowRebirth.completed) {
+        achievements.shadowRebirth.completed = true;
+        showAchievementPopup(achievements.shadowRebirth.name);
+    }
+
+    updateAchievements();
+}
 // Calculate cost for next Phantom
 function getPhantomCost(){
     let baseCost = phantomCostIncrement;
@@ -65,10 +207,12 @@ function updatePhantoms(){
     let costPerPhantom = getPhantomCost();
 
     // Check current shadows against threshold
-    if(shadows >= nextPhantomThreshold){
+    while(shadows >= nextPhantomThreshold){
         phantoms++;
+        lifetimePhantoms++;
         // Increase threshold
         nextPhantomThreshold = nextPhantomThreshold + costPerPhantom;
+        checkAchievements();
     }
     phantomCounter.textContent = phantoms;
 }
@@ -236,8 +380,10 @@ function updateDisplay(){
 // Gain Shadows button
 gainShadowButton.addEventListener('click', function(){
     shadows += shadowsPerClick;
+    lifetimeShadows = lifetimeShadows + shadowsPerClick;
     updatePhantoms();
     updateDisplay();
+    checkAchievements()
 })
 
 // Upgrade Speed button
@@ -247,6 +393,7 @@ speedUpgradeButton.addEventListener('click', function(){
         speedLevel++;
         updatePhantoms();
         updateDisplay();
+        checkAchievements()
     }
 })
 
@@ -258,6 +405,7 @@ stealthUpgradeButton.addEventListener('click', function(){
         updatePhantoms();
         updateNinjaStats();
         updateDisplay();
+        checkAchievements();
     }
 })
 
@@ -286,6 +434,7 @@ tier1Button.addEventListener('click', function(){
         updatePhantoms()
         updateNinjaStats();
         updateDisplay();
+        checkAchievements();
     }
 })
 
@@ -314,6 +463,7 @@ tier2Button.addEventListener('click', function(){
         updatePhantoms()
         updateNinjaStats();
         updateDisplay();
+        checkAchievements();
     }
 })
 
@@ -342,6 +492,7 @@ tier3Button.addEventListener('click', function(){
         updatePhantoms()
         updateNinjaStats();
         updateDisplay();
+        checkAchievements();
     }
 })
 
@@ -370,6 +521,7 @@ tier4Button.addEventListener('click', function(){
         updatePhantoms()
         updateNinjaStats();
         updateDisplay();
+        checkAchievements();
     }
 })
 
@@ -398,6 +550,7 @@ tier5Button.addEventListener('click', function(){
         updatePhantoms()
         updateNinjaStats();
         updateDisplay();
+        checkAchievements();
     }
 })
 
@@ -405,8 +558,10 @@ tier5Button.addEventListener('click', function(){
 setInterval(() => {
     let shadowGain = shadowsPerSec / 10;
     shadows = shadows + shadowGain;
+    lifetimeShadows = lifetimeShadows + shadowGain;
     updatePhantoms();
     updateDisplay();
+    checkAchievements();
 }, 100);
 
 // Update Ninja Statistics
@@ -426,6 +581,7 @@ ninjaHireButtons.forEach(button => {
         if (shadows >= ninja.cost){
             shadows -= ninja.cost;
             ninja.count ++;
+            lifetimeNinjasHired++;
             let baseNinjaCost = ninja.baseCost + (ninja.increment * ninja.count);
             // Apply 30% discount if Tier 5 is purchased
             if(tier5Purchased){
@@ -433,10 +589,27 @@ ninjaHireButtons.forEach(button => {
             } else {
                 ninja.cost = baseNinjaCost;
             }
+
+            const ninjaSection = button.closest('.ninja_section');
+            ninjaSection.classList.remove('pulse'); // Remove existing animation
+            void ninjaSection.offsetWidth; // Restart the animation
+            ninjaSection.classList.add('pulse');
+
             updatePhantoms();
             updateNinjaStats();
+            updateDisplay();
+            checkAchievements();
         }
     });
 })
+
+// Toggle Achievements Dropdown
+const achievementButton = document.getElementById("achievements_button");
+achievementButton.addEventListener("click", () => {
+    const achievementsList = document.getElementById("achievements");
+    achievementsList.classList.toggle("active");
+});
+
 updateDisplay();
 updateNinjaStats();
+updateAchievements();
