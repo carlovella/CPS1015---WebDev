@@ -18,7 +18,15 @@
             <p class = "altText">Shadows/click: <span id = "shadowsPerClick">1</span></p>
             <p class = "altText">Shadows/sec: <span id = "shadowsPerSec">0</span></p>
             <button id = "gainShadow">Gain Shadow</button>
+        </div>
 
+        <div class = "phantoms_box resources-section">
+            <p>👻 Phantoms 👻: <span id = "phantomCounter">0</span></p>
+            <p class = "altText"> Shadows to next Phantom: </p>
+            <p id = "progressText">  0/500000 (0%)</p>
+            <div id = "progressBox">
+                <div id = "progressBar"></div>
+            </div>
         </div>
 
         <!-- Ninjas -->
@@ -27,6 +35,7 @@
             <div class = "ninja_grid">
                 <div class = "ninja_section">
                     <p> Novice Ninja </p>
+                    <p class = "altText">(+1 Shadow/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
                     <img class = "ninja_png" src = "images/Novice%20Ninja.png" alt = "Novice Ninja">
                     <button class = "ninja_button" data-type = "novice" title = "Novice: +1 Shadows/Sec">
@@ -35,6 +44,7 @@
                 </div>
                 <div class = "ninja_section">
                     <p> Rogue Ninja </p>
+                    <p class = "altText">(+5 Shadows/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
                     <img class = "ninja_png" src = "images/Rogue%20Ninja.png" alt = "Rogue Ninja">
                     <button class = "ninja_button" data-type = "rogue" title = "Rogue: +5 Shadows/Sec">
@@ -44,6 +54,7 @@
 
                 <div class = "ninja_section">
                     <p> Elite Ninja </p>
+                    <p class = "altText">(+20 Shadows/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
                     <img class = "ninja_png" src = "images/Elite%20Ninja.png" alt = "Elite Ninja">
                     <button class = "ninja_button" data-type = "elite" title = "Elite: +20 Shadows/Sec">
@@ -53,6 +64,7 @@
 
                 <div class = "ninja_section">
                     <p> Grandmaster Ninja </p>
+                    <p class = "altText">(+100 Shadows/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
                     <img class = "ninja_png" src = "images/Grandmaster%20Ninja.png" alt = "Grandmaster Ninja">
                     <button class = "ninja_button" data-type = "grandmaster" title = "Grandmaster: +100 Shadows/Sec">
@@ -68,6 +80,7 @@
 
             <div class = "upgrade_section">
                 <p>Speed</p>
+                <p class = "altText">(+5 Shadows/CLick)</p>
                 <p class = "altText">Level: <span id = "speed_level"></span> /10</p>
                 <button id = "speed_upgrade_button">
                     <span>Upgrade: <span id = "speed_cost">500</span> Shadows</span>
@@ -76,6 +89,7 @@
 
             <div class = "upgrade_section">
                 <p>Stealth</p>
+                <p class = "altText">(+10% Ninja Shadows/Sec)</p>
                 <p class = "altText">Level: <span id = "stealth_level"></span> /10</p>
                 <button id = "stealth_upgrade_button">
                     <span>Upgrade: <span id = "stealth_cost">500</span> Shadows</span>
@@ -84,22 +98,17 @@
         </div>
 
         <!-- Prestige -->
-        <div class = "prestige_box">
-            <p>👻 Phantoms 👻: <span id = "phantomCounter">0</span></p>
-            <p id = "progressText"> Shadows to next Phantom: 0/500000 (0%)</p>
-            <div id = "progressBox">
-                <div id = "progressBar"></div>
-            </div>
+        <div class = "tiers-box">
             <div class = "tiers">
-                <p>Tiers: </p>
+                <p>🌟 Prestige Tiers 🌟 </p>
                 <div class = "tiers-grid">
-                    <div class = "prestige_section">Tier 1: +50% Ninja Shadows per Second
+                    <div class = "prestige_section">Tier 1: +50% Ninja Shadows/Sec
                         <button id = "tier1Button"> Buy: 1 Phantom</button>
                     </div>
-                    <div class = "prestige_section">Tier 2: 20% Less Shadows to gain Phantoms
+                    <div class = "prestige_section">Tier 2: 20% Faster Phantom Gain
                         <button id = "tier2Button"> Buy: 2 Phantoms</button>
                     </div>
-                    <div class = "prestige_section">Tier 3: +50% Shadows per Click Value
+                    <div class = "prestige_section">Tier 3: +50% Shadows/Click
                         <button id = "tier3Button"> Buy: 3 Phantoms</button>
                     </div>
                     <div class = "prestige_section">Tier 4: Upgrades Cost 30% less

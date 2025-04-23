@@ -110,7 +110,7 @@ function updateDisplay(){
     let currentShadows = Math.round(shadows);
     let phantomCostRounded = Math.round(nextPhantomThreshold);
     let percentageRounded = Math.round(progressPercentage);
-    phantomProgressText.textContent = 'Shadows to next Phantom: ' + currentShadows + '/' + phantomCostRounded + ' (' + percentageRounded + '%)';
+    phantomProgressText.textContent = currentShadows + '/' + phantomCostRounded + ' (' + percentageRounded + '%)';
     phantomProgressBar.style.width = percentageRounded + '%';
 
     shadowCounter.textContent = Math.round(shadows);

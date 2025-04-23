@@ -2,8 +2,9 @@
 h1{
     text-align: center;
     color: lightgray;
-    font-size: 35px;
-    margin-bottom: 20px;
+    font-size: 33px;
+    margin: 0 0 20px 0;
+    padding: 8px;
 }
 body{
     font-family: 'Luckiest Guy', cursive;
@@ -14,6 +15,12 @@ body{
     text-align: center;
     color: lightgray;
     font-size: 18px;
+}
+.upgrades-section .altText{
+    font-size: 14px;
+}
+.ninja_section .altText{
+    font-size: 16px;
 }
 button{
     background: #E32C2C;
@@ -37,7 +44,7 @@ button{
     background-color: #2C1A38;
     border: 1px solid black;
     border-radius: 10px;
-    margin: 80px auto;
+    margin: 20px auto;
     padding: 8px 16px;
     box-sizing: border-box;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
@@ -58,7 +65,7 @@ button{
 }
 .resources-section {
     position: absolute;
-    top: 20px;
+    top: 0;
     left: 50%;
     transform: translate(-50%);
 }
@@ -67,43 +74,66 @@ button{
     top: 0;
     right: 0;
 }
-.prestige_box {
+.phantoms_box{
+    width: 300px;
+    height: 230px;
+    top: 470px;
+    font-size: 22px;
+    color: #D4AF37;
+    background-color: #2C1A38;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    margin: 10px auto;
+}
+.tiers-box{
     position: absolute;
-    width: 500px;
-    top: 500px;
-    left: 50%;
-    transform: translate(-50%);
-    margin-left: auto;
-    margin-right: auto;
+    width: 450px;
+    height: 440px;
+    top: 400px;
+    left: 170px;
+    font-size: 18px;
+    color: #D4AF37;
+    background-color: #2C1A38;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    text-align: center;
 }
 
 /* Upgrades */
 .upgrades_box{
-    width: 400px;
-    height: 450px;
-    font-size: 20px;
+    width: 450px;
+    height: 390px;
+    font-size: 16px;
     background-color: #2C1A38;
     border: 1px solid black;
     border-radius: 10px;
-    margin: 20px;
-    padding: 10px;
+    margin: 0 20px 20px 20px;
+    padding: 8px;
     box-sizing: border-box;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     text-align: center;
     color: white;
 }
 .upgrade_section{
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     color: #D4AF37;
     border-radius: 10px;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     border: 1px solid black;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background-color: #1A1124;
 }
 #speed_upgrade_button, #stealth_upgrade_button{
-    padding: 8px 16px;
+    padding: 4px 8px;
+    font-size: 14px;
     background-color: #E32C2C;
     color: lightgray;
     border: 1px solid black;
@@ -124,7 +154,7 @@ button{
 /* Ninjas */
 .ninjas_box{
     width: 600px;
-    height: auto;
+    height: 840px;
     font-size: 20px;
     background-color: #2C1A38;
     border: 1px solid black;
@@ -175,20 +205,7 @@ button{
     background-color: #E32C2C;
 }
 
-/* Prestige */
-.prestige_box{
-    position: absolute;
-    height: auto;
-    font-size: 20px;
-    color: #D4AF37;
-    background-color: #2C1A38;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    text-align: center;
-}
+/* Tiers */
 .prestige_section{
     flex: 0 0 calc(50% - 5px);
     width: 200px;
@@ -207,31 +224,34 @@ button{
 #progressText{
     text-align: center;
     color: lightgray;
-    font-size: 15px;
+    font-size: 18px;
 }
 .tiers{
     margin-top: 10px;
     width: 100%;
+    color: lightgray;
 }
 .tiers-grid{
     display: grid;
     grid-template-columns: repeat(2, 200px);
     grid-gap: 10px;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
     width: 100%;
     max-width: 100%;
+    font-size: 12px;
 }
 .tiers-grid .prestige_section:nth-child(5) {
     grid-column: 1 / -1;
     width: 200px;
     margin: 10px auto 0 auto;
+    gap: 8px;
 }
 #tier1Button, #tier2Button, #tier3Button, #tier4Button, #tier5Button{
     background-color: #E32C2C;
     color: lightgray;
     border: none;
-    padding: 5px 10px;
+    padding: 4px 8px;
     margin: 5px;
     cursor: pointer;
     border-radius: 3px;
@@ -270,13 +290,18 @@ button{
         flex-direction: column;
         align-items: center;
     }
-    .box, .upgrades_box, .ninjas_box, .prestige_box{
+    .box, .upgrades_box, .ninjas_box, .phantoms_box, .tiers-box{
         width: 100%;
         max-width: 400px;
         margin: 10px auto;
         position: static;
         transform: none;
         height: auto;
+    }
+    .resources-section {
+        position: static;
+        transform: none;
+        display: block;
     }
     .tiers-grid {
         max-width: 100%;
@@ -294,7 +319,7 @@ button{
         padding: 6px 12px;
         font-size: 13px;
     }
-    .ninja_section, .upgrade_section, .resources_section {
+    .ninja_section, .upgrade_section, .resources-section {
         width: 100%;
         max-width: 250px;
         padding: 8px;
