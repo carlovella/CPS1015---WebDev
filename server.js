@@ -7,7 +7,7 @@ const dataFile = 'package.json';
 // Object to store data
 let playerDataStore = {};
 
-// Use static frontend files (index.html, script.js, style.css) and  requests from JSON
+// Use static frontend files (index.html, logic.js, style.css) and  requests from JSON
 app.use(express.static('.'));
 app.use(express.json());
 

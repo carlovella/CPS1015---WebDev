@@ -108,6 +108,8 @@ const tier2Button = document.getElementById('tier2Button');
 const tier3Button = document.getElementById('tier3Button');
 const tier4Button = document.getElementById('tier4Button');
 const tier5Button = document.getElementById('tier5Button');
+const saveGameButton = document.getElementById('saveGameButton');
+const saveGameText = document.getElementById('saveGameText');
 
 // Saving Game Stats
 function saveGame(){
@@ -140,6 +142,11 @@ function saveGame(){
         nextPhantomThreshold: nextPhantomThreshold
     };
 
+    // Disable save button to prevent multiple clicks
+    if(saveGameButton){
+        saveGameButton.disabled = true;
+    }
+
     fetch('/gameData', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -148,6 +155,13 @@ function saveGame(){
         .then(response => {
             if(response.ok){
                 console.log('Game Saved');
+                // Show confirmation message
+                if(saveGameText){
+                    saveGameText.classList.add('show');
+                    setTimeout(()=>{
+                        saveGameText.classList.remove('show');
+                    }, 2000); // Hide after 2 seconds
+                }
             }else{
                 console.error('Failed to Save Game');
             }
@@ -157,7 +171,13 @@ function saveGame(){
         })
         .catch(error => {
             console.error('Failed to Save Game Data', error);
-        });
+        })
+        .finally(() => {
+            // Re-enable save button
+            if(saveGameButton){
+                saveGameButton.disabled = false;
+            }
+    })
 }
 
 // Loading Game Stats
@@ -633,6 +653,11 @@ tier5Button.addEventListener('click', function(){
         checkAchievements();
     }
 })
+
+// Save Game Button
+if(saveGameButton){
+    saveGameButton.addEventListener('click', saveGame);
+}
 
 // Passive Shadow gain
 setInterval(() => {

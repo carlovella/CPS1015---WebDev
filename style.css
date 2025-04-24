@@ -220,6 +220,15 @@ button, .ninja_button,
     left: 170px;
     font-size: 18px;
 }
+.save_game_section{
+    position: absolute;
+    margin: 10px auto;
+    text-align: center;
+    max-width: 300px;
+    top: 750px;
+    left: 50%;
+    transform: translate(-50%);
+}
 
 /* Upgrades */
 .upgrades_box{
@@ -363,6 +372,25 @@ button, .ninja_button,
     transition: width 0.3s ease;
 }
 
+/* Save Game Section */
+#saveGameButton{
+    padding: 10px 20px;
+    font-size: 18px;
+}
+#saveGameText{
+    display: none;
+    color: #D4AF37;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 16px;
+    margin-top: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+#saveConfirmation.show {
+    display: block;
+    opacity: 1;
+}
+
 /* Media for Mobile Devices */
 @media (max-width: 768px){
     .container{
@@ -372,7 +400,7 @@ button, .ninja_button,
     }
     .box, .upgrades_box,
     .ninjas_box, .phantoms_box,
-    .tiers-box{
+    .tiers-box, .save_game_section{
         width: 100%;
         max-width: 400px;
         margin: 10px auto;
@@ -437,5 +465,8 @@ button, .ninja_button,
     #achievement-popup{
         font-size: 16px;
         padding: 10px;
+    }
+    #saveConfirmation {
+        font-size: 14px;
     }
 }
