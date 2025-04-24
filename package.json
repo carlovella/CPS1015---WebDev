@@ -1,0 +1,87 @@
+{
+  "shadows": 0,
+  "lifetimeShadows": 0,
+  "phantoms": 0,
+  "lifetimePhantoms": 0,
+  "lifetimeNinjasHired": 0,
+  "speedLevel": 0,
+  "speedCost": 500,
+  "stealthLevel": 0,
+  "stealthCost": 500,
+  "tier1Purchased": false,
+  "tier2Purchased": false,
+  "tier3Purchased": false,
+  "tier4Purchased": false,
+  "tier5Purchased": false,
+  "ninjas": {
+    "novice": {
+      "count": 0,
+      "cost": 10
+    },
+    "rogue": {
+      "count": 0,
+      "cost": 100
+    },
+    "elite": {
+      "count": 0,
+      "cost": 1000
+    },
+    "grandmaster": {
+      "count": 0,
+      "cost": 10000
+    }
+  },
+  "achievements": {
+    "shadowCollectorI": {
+      "name": "Shadow Collector I",
+      "description": "Collect 1,000 Shadows",
+      "completed": false
+    },
+    "shadowCollectorII": {
+      "name": "Shadow Collector II",
+      "description": "Collect 100,000 Shadows",
+      "completed": false
+    },
+    "shadowCollectorIII": {
+      "name": "Shadow Collector III",
+      "description": "Collect 10,000,000 Shadows",
+      "completed": false
+    },
+    "phantomSeeker": {
+      "name": "Phantom Seeker",
+      "description": "Collect 3 Phantoms",
+      "completed": false
+    },
+    "ninjaRecruiterI": {
+      "name": "Ninja Recruiter I",
+      "description": "Hire 10 ninjas",
+      "completed": false
+    },
+    "ninjaRecruiterII": {
+      "name": "Ninja Recruiter II",
+      "description": "Hire 50 ninjas",
+      "completed": false
+    },
+    "ninjaRecruiterIII": {
+      "name": "Ninja Recruiter III",
+      "description": "Hire 100 ninjas",
+      "completed": false
+    },
+    "speedStalker": {
+      "name": "Speed Stalker",
+      "description": "Max the Speed upgrade",
+      "completed": false
+    },
+    "stealthMaster": {
+      "name": "Stealth Master",
+      "description": "Max the Stealth upgrade",
+      "completed": false
+    },
+    "shadowRebirth": {
+      "name": "Shadow Rebirth",
+      "description": "Prestige for the first time",
+      "completed": false
+    }
+  },
+  "nextPhantomThreshold": 500000
+}

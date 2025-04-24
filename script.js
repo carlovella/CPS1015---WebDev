@@ -79,6 +79,15 @@ const achievements = {
         completed: false
     }
 };
+
+// Ninja Object with different properties
+const ninjas = {
+    novice: { baseCost: 10, cost: 10, increment: 5, sps: 1, count: 0},
+    rogue: { baseCost: 100, cost: 100, increment:50, sps: 5, count: 0},
+    elite: { baseCost: 1000, cost: 1000, increment:500, sps: 20, count: 0},
+    grandmaster: { baseCost: 10000, cost: 10000, increment:5000, sps: 100, count: 0},
+}
+
 // DOM elements for UI (Linkage of scripts)
 const gainShadowButton = document.getElementById('gainShadow');
 const shadowCounter = document.getElementById('shadowCounter');
@@ -100,12 +109,111 @@ const tier3Button = document.getElementById('tier3Button');
 const tier4Button = document.getElementById('tier4Button');
 const tier5Button = document.getElementById('tier5Button');
 
-// Ninja Object with different properties
-const ninjas = {
-    novice: { baseCost: 10, cost: 10, increment: 5, sps: 1, count: 0},
-    rogue: { baseCost: 100, cost: 100, increment:50, sps: 5, count: 0},
-    elite: { baseCost: 1000, cost: 1000, increment:500, sps: 20, count: 0},
-    grandmaster: { baseCost: 10000, cost: 10000, increment:5000, sps: 100, count: 0},
+// Saving Game Stats
+function saveGame(){
+    // For ninjas object
+    const ninjaData = {};
+    for(let key in ninjas){
+        ninjaData[key] = {
+            count: ninjas[key].count,
+            cost: ninjas[key].cost
+        };
+    }
+
+    const gameData = {
+        shadows: shadows,
+        lifetimeShadows: lifetimeShadows,
+        phantoms: phantoms,
+        lifetimePhantoms: lifetimePhantoms,
+        lifetimeNinjasHired: lifetimeNinjasHired,
+        speedLevel: speedLevel,
+        speedCost: (typeof speedCost === 'number') ? speedCost : 0, // Checks if speedCost is a number or 'Maxed'
+        stealthLevel: stealthLevel,
+        stealthCost: (typeof stealthCost === 'number') ? stealthCost : 0, // Checks if stealthCost is a number of 'Maxed'
+        tier1Purchased: tier1Purchased,
+        tier2Purchased: tier2Purchased,
+        tier3Purchased: tier3Purchased,
+        tier4Purchased: tier4Purchased,
+        tier5Purchased: tier5Purchased,
+        ninjas: ninjaData,
+        achievements: achievements,
+        nextPhantomThreshold: nextPhantomThreshold
+    };
+
+    fetch('/gameData', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(gameData)
+    })
+        .then(response => {
+            if(response.ok){
+                console.log('Game Saved');
+            }else{
+                console.error('Failed to Save Game');
+            }
+        })
+        .then(data => {
+            console.log('Game Data Saved', data)
+        })
+        .catch(error => {
+            console.error('Failed to Save Game Data', error);
+        });
+}
+
+// Loading Game Stats
+function loadGame() {
+    fetch('/gameData', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(response => response.json())
+        .then(gameData => {
+            if (gameData) {
+                // Get saved data or if not saved, default value
+                shadows = gameData.shadows || 0;
+                lifetimeShadows = gameData.lifetimeShadows || 0;
+                phantoms = gameData.phantoms || 0;
+                lifetimePhantoms = gameData.lifetimePhantoms || 0;
+                lifetimeNinjasHired = gameData.lifetimeNinjasHired || 0;
+                speedLevel = gameData.speedLevel || 0;
+                speedCost = gameData.speedCost || 500;
+                stealthLevel = gameData.stealthLevel || 0;
+                stealthCost = gameData.stealthCost || 500;
+                tier1Purchased = gameData.tier1Purchased || false;
+                tier2Purchased = gameData.tier2Purchased || false;
+                tier3Purchased = gameData.tier3Purchased || false;
+                tier4Purchased = gameData.tier4Purchased || false;
+                tier5Purchased = gameData.tier5Purchased || false;
+                nextPhantomThreshold = gameData.nextPhantomThreshold || 500000;
+
+                // Load Ninjas
+                Object.keys(gameData.ninjas).forEach((type) => {
+                    if(ninjas[type]){
+                        ninjas[type].count = gameData.ninjas[type].count;
+                        ninjas[type].cost = gameData.ninjas[type].cost;
+                    }
+                })
+
+                // Load Achievements
+                if(gameData.achievements){
+                    Object.keys(achievements).forEach((key) => {
+                        if(gameData.achievements[key]){
+                            achievements[key].completed = gameData.achievements[key].completed;
+                        }
+                    })
+                }
+
+                // Update UI
+                updateDisplay();
+                updateNinjaStats();
+                updateAchievements();
+            } else {
+                console.error('Failed to Load Game Data');
+            }
+        })
+        .catch(error => {
+            console.error('Failed to Load Game Data', error);
+        });
 }
 
 // Show achievement popup when achievement unlocked
@@ -587,3 +695,9 @@ achievementButton.addEventListener("click", () => {
 updateDisplay();
 updateNinjaStats();
 updateAchievements();
+
+// Load game when page loads
+document.addEventListener('DOMContentLoaded', loadGame);
+
+// Save game every 30 seconds
+setInterval(saveGame, 30000);
