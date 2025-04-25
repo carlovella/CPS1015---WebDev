@@ -1,16 +1,16 @@
-// Resource variables
+// --- Resource Variables ----
 let shadows = 0;
 let shadowsPerClick = 1;
 let shadowsPerSec = 0; // Shadows per second from ninjas
 let phantoms = 0;
 let nextPhantomThreshold = 500000; // Shadows needed for next phantom
 
-// Counters for Achievements
+// ---- Achievement Counters ----
 let lifetimeShadows = 0;
 let lifetimePhantoms = 0;
 let lifetimeNinjasHired = 0;
 
-// Upgrade variables
+// ---- Upgrade Variables ----
 let speedLevel = 0;
 let speedCost = 500;
 let stealthLevel = 0;
@@ -18,15 +18,15 @@ let stealthCost = 500;
 const maxStealthLevel = 10;
 const maxSpeedLevel = 10;
 
-// Phantom tier variables
-let  tier1Purchased = false;
-let  tier2Purchased = false;
-let  tier3Purchased = false;
-let  tier4Purchased = false;
-let  tier5Purchased = false;
+// ---- Phantom Tier Variables ----
+let tier1Purchased = false;
+let tier2Purchased = false;
+let tier3Purchased = false;
+let tier4Purchased = false;
+let tier5Purchased = false;
 const phantomCostIncrement = 500000; // Cost increment for phantoms
 
-// Achievements Structure
+// ---- Achievements ----
 const achievements = {
     shadowCollectorI: {
         name: "Shadow Collector I",
@@ -80,7 +80,7 @@ const achievements = {
     }
 };
 
-// Ninja Object with different properties
+// ---- Ninja Object ----
 const ninjas = {
     novice: { baseCost: 10, cost: 10, increment: 5, sps: 1, count: 0},
     rogue: { baseCost: 100, cost: 100, increment:50, sps: 5, count: 0},
@@ -88,7 +88,7 @@ const ninjas = {
     grandmaster: { baseCost: 10000, cost: 10000, increment:5000, sps: 100, count: 0},
 }
 
-// DOM elements for UI (Linkage of scripts)
+// ---- DOM elements for UI ----
 const gainShadowButton = document.getElementById('gainShadow');
 const shadowCounter = document.getElementById('shadowCounter');
 const shadowsPerSecDisplay = document.getElementById('shadowsPerSec');
@@ -103,15 +103,26 @@ const stealthUpgradeButton = document.getElementById('stealth_upgrade_button');
 const phantomCounter = document.getElementById('phantomCounter');
 const phantomProgressText = document.getElementById('progressText');
 const phantomProgressBar = document.getElementById('progressBar');
-const tier1Button = document.getElementById('tier1Button');
-const tier2Button = document.getElementById('tier2Button');
-const tier3Button = document.getElementById('tier3Button');
-const tier4Button = document.getElementById('tier4Button');
-const tier5Button = document.getElementById('tier5Button');
+const tierButtons = {
+    1: document.getElementById('tier1Button'),
+    2: document.getElementById('tier2Button'),
+    3: document.getElementById('tier3Button'),
+    4: document.getElementById('tier4Button'),
+    5: document.getElementById('tier5Button'),
+}
 const saveGameButton = document.getElementById('saveGameButton');
 const saveGameText = document.getElementById('saveGameText');
 
-// Saving Game Stats
+// ---- Prestige Tiers ----
+const tiers = {
+    1: {cost: 1, message: 'Reset and Gain +50% Ninja SPS (Shadows Per Second)'},
+    2: {cost: 2, message: 'Reset and Gain -20% Phantom Cost for next Phantom'},
+    3: {cost: 3, message: 'Reset and Gain +50% Click Value (Shadows Per Click)'},
+    4: {cost: 4, message: 'Reset and Gain -30% Upgrade Costs'},
+    5: {cost: 5, message: 'Reset and Gain -30% Ninja Costs'},
+};
+
+// ---- Save Game ----
 function saveGame(){
     // For ninjas object
     const ninjaData = {};
@@ -180,7 +191,7 @@ function saveGame(){
     })
 }
 
-// Loading Game Stats
+// ---- Load Game ----
 function loadGame() {
     fetch('/gameData', {
         method: 'GET',
@@ -321,6 +332,7 @@ function checkAchievements(){
 
     updateAchievements();
 }
+
 // Calculate cost for next Phantom
 function getPhantomCost(){
     let baseCost = phantomCostIncrement; // Base cost for phantom
@@ -344,6 +356,16 @@ function updatePhantoms(){
         checkAchievements();
     }
     phantomCounter.textContent = phantoms; // Update phantom counter
+}
+
+// Update Ninja Statistics
+function updateNinjaStats(){
+    shadowsPerSec = 0;
+    Object.values(ninjas).forEach(ninja => {
+        // Calculate shadows per second
+        shadowsPerSec += ninja.count * ninja.sps * (1 + stealthLevel * 0.1) * (tier1Purchased ? 1.5 : 1);
+    });
+    updateDisplay();
 }
 
 // Update Display
@@ -385,7 +407,7 @@ function updateDisplay(){
     phantomProgressText.textContent = currentShadows + '/' + phantomCostRounded + ' (' + percentageRounded + '%)';
     phantomProgressBar.style.width = percentageRounded + '%';
 
-    // Update Resource and Upgrades Display
+    // Update Resources and Upgrades Display
     shadowCounter.textContent = Math.round(shadows);
     shadowsPerSecDisplay.textContent = shadowsPerSec;
     speedLevelDisplay.textContent = speedLevel;
@@ -440,72 +462,48 @@ function updateDisplay(){
         }
     }
 
-    // Updating Tier 1 button
-    if (phantoms >= 1 && !tier1Purchased){ // Check condition and make sure it is not purchased
-        tier1Button.classList.remove('ghosted', 'maxed');
-        tier1Button.disabled = false;
-    }else {
-        tier1Button.classList.add('ghosted');
-        tier1Button.disabled = true;
-        if(tier1Purchased){
-            tier1Button.classList.add('maxed');
-            tier1Button.classList.remove('ghosted')
+    // Updating Tier Buttons
+    for(let tier = 1; tier <= 5; tier++){
+        const isPurchased = eval(`tier${tier}Purchased`);
+        if(phantoms >= tiers[tier].cost && !isPurchased){
+            tierButtons[tier].classList.remove('ghosted', 'maxed');
+            tierButtons[tier].disabled = false;
+        }else {
+            tierButtons[tier].classList.add('ghosted');
+            tierButtons[tier].disabled = true;
+            if(isPurchased){
+                tierButtons[tier].classList.add('maxed');
+                tierButtons[tier].classList.remove('ghosted')
+            }
         }
     }
-
-    // Updating Tier 2 button
-    if (phantoms >= 2 && !tier2Purchased){ // Check condition and make sure it is not purchased
-        tier2Button.classList.remove('ghosted', 'maxed');
-        tier2Button.disabled = false;
-    }else {
-        tier2Button.classList.add('ghosted');
-        tier2Button.disabled = true;
-        if(tier2Purchased){
-            tier2Button.classList.add('maxed');
-            tier2Button.classList.remove('ghosted')
-        }
-    }
-
-    // Updating Tier 3 button
-    if (phantoms >= 3 && !tier3Purchased){ // Check condition and make sure it is not purchased
-        tier3Button.classList.remove('ghosted', 'maxed');
-        tier3Button.disabled = false;
-    }else {
-        tier3Button.classList.add('ghosted');
-        tier3Button.disabled = true;
-        if(tier3Purchased){
-            tier3Button.classList.add('maxed');
-            tier3Button.classList.remove('ghosted')
-        }
-    }
-
-    // Updating Tier 4 button
-    if (phantoms >= 4 && !tier4Purchased){ // Check condition and make sure it is not purchased
-        tier4Button.classList.remove('ghosted', 'maxed');
-        tier4Button.disabled = false;
-    }else {
-        tier4Button.classList.add('ghosted');
-        tier4Button.disabled = true;
-        if(tier4Purchased){
-            tier4Button.classList.add('maxed');
-            tier4Button.classList.remove('ghosted')
-        }
-    }
-
-    // Updating Tier 5 button
-    if (phantoms >= 5 && !tier5Purchased){ // Check condition and make sure it is not purchased
-        tier5Button.classList.remove('ghosted', 'maxed');
-        tier5Button.disabled = false;
-    }else {
-        tier5Button.classList.add('ghosted');
-        tier5Button.disabled = true;
-        if(tier5Purchased){
-            tier5Button.classList.add('maxed');
-            tier5Button.classList.remove('ghosted')
-        }
-    }
-
 }
+
+// Tier Purchasing
+function tierPurchase(tier){
+    const tierID = tiers[tier];
+    const userConfirmation = confirm(`Buy Tier ${tier}: ${tierID.message}`);
+    if(userConfirmation){
+        phantoms -= tierID.cost;
+        eval(`tier${tier}Purchased = true`);
+        // Reset threshold
+        nextPhantomThreshold = 500000 + (phantoms * getPhantomCost());
+        // Reset Game
+        shadows = 0;
+        speedLevel = 0;
+        stealthLevel = 0;
+        Object.values(ninjas).forEach(ninja => {
+            ninja.count = 0;
+            ninja.cost = ninja.baseCost;
+        });
+        updatePhantoms()
+        updateNinjaStats();
+        updateDisplay();
+        checkAchievements();
+    }
+}
+
+// ---- Event Listeners ----
 
 // Gain Shadows button
 gainShadowButton.addEventListener('click', function(){
@@ -539,144 +537,16 @@ stealthUpgradeButton.addEventListener('click', function(){
     }
 })
 
-// Tier 1 Button
-tier1Button.addEventListener('click', function(){
-    let userConfirmation = confirm('Buy Tier 1: Reset and Gain +50% Ninja SPS (Shadows Per Second)');
-    if(userConfirmation){
-        phantoms = phantoms - 1;
-        tier1Purchased = true;
-        // Reset threshold
-        nextPhantomThreshold = 500000 + (phantoms * getPhantomCost());
-        // Reset Game
-        shadows = 0;
-        speedLevel = 0;
-        stealthLevel = 0;
-        Object.values(ninjas).forEach(ninja => {
-            ninja.count = 0;
-            ninja.cost = ninja.baseCost;
-        });
-        updatePhantoms()
-        updateNinjaStats();
-        updateDisplay();
-        checkAchievements();
+// Tier Buttons
+for(let tier = 1; tier <= 5; tier++){
+    if(tierButtons[tier]){
+        tierButtons[tier].addEventListener('click', () => tierPurchase(tier));
     }
-})
-
-// Tier 2 Button
-tier2Button.addEventListener('click', function(){
-    let userConfirmation = confirm('Buy Tier 2: Reset and Gain -20% Phantom Cost for next Phantom');
-    if(userConfirmation){
-        phantoms = phantoms - 2;
-        tier2Purchased = true;
-        // Reset threshold
-        nextPhantomThreshold = 500000 + (phantoms * getPhantomCost());
-        // Reset Game
-        shadows = 0;
-        speedLevel = 0;
-        stealthLevel = 0;
-        Object.values(ninjas).forEach(ninja => {
-            ninja.count = 0;
-            ninja.cost = ninja.baseCost;
-        });
-        updatePhantoms()
-        updateNinjaStats();
-        updateDisplay();
-        checkAchievements();
-    }
-})
-
-// Tier 3 Button
-tier3Button.addEventListener('click', function(){
-    let userConfirmation = confirm('Buy Tier 3: Reset and Gain +50% Click Value (Shadows per Click)');
-    if(userConfirmation){
-        phantoms = phantoms - 3;
-        tier3Purchased = true;
-        // Reset threshold
-        nextPhantomThreshold = 500000 + (phantoms * getPhantomCost());
-        // Reset Game
-        shadows = 0;
-        speedLevel = 0;
-        stealthLevel = 0;
-        Object.values(ninjas).forEach(ninja => {
-            ninja.count = 0;
-            ninja.cost = ninja.baseCost;
-        });
-        updatePhantoms()
-        updateNinjaStats();
-        updateDisplay();
-        checkAchievements();
-    }
-})
-
-// Tier 4 Button
-tier4Button.addEventListener('click', function(){
-    let userConfirmation = confirm('Buy Tier 4: Reset and Gain -30% Upgrade Costs');
-    if(userConfirmation){
-        phantoms = phantoms - 4;
-        tier4Purchased = true;
-        // Reset threshold
-        nextPhantomThreshold = 500000 + (phantoms * getPhantomCost());
-        // Reset Game
-        shadows = 0;
-        speedLevel = 0;
-        stealthLevel = 0;
-        Object.values(ninjas).forEach(ninja => {
-            ninja.count = 0;
-            ninja.cost = ninja.baseCost;
-        });
-        updatePhantoms()
-        updateNinjaStats();
-        updateDisplay();
-        checkAchievements();
-    }
-})
-
-// Tier 5 Button
-tier5Button.addEventListener('click', function(){
-    let userConfirmation = confirm('Buy Tier 5: Reset and Gain -30% Ninja Costs');
-    if(userConfirmation){
-        phantoms = phantoms - 5;
-        tier5Purchased = true;
-        // Reset threshold
-        nextPhantomThreshold = 500000 + (phantoms * getPhantomCost());
-        // Reset Game
-        shadows = 0;
-        speedLevel = 0;
-        stealthLevel = 0;
-        Object.values(ninjas).forEach(ninja => {
-            ninja.count = 0;
-            ninja.cost = ninja.baseCost;
-        });
-        updatePhantoms()
-        updateNinjaStats();
-        updateDisplay();
-        checkAchievements();
-    }
-})
+}
 
 // Save Game Button
 if(saveGameButton){
     saveGameButton.addEventListener('click', saveGame);
-}
-
-// Passive Shadow gain
-setInterval(() => {
-    let shadowGain = shadowsPerSec / 10;
-    shadows = shadows + shadowGain;
-    lifetimeShadows = lifetimeShadows + shadowGain;
-    updatePhantoms();
-    updateDisplay();
-    checkAchievements();
-}, 100); // Update every 100ms
-
-// Update Ninja Statistics
-function updateNinjaStats(){
-    shadowsPerSec = 0;
-    Object.values(ninjas).forEach(ninja => {
-        // Calculate shadows per second
-        shadowsPerSec += ninja.count * ninja.sps * (1 + stealthLevel * 0.1) * (tier1Purchased ? 1.5 : 1);
-    });
-    updateDisplay();
 }
 
 // Ninja Hiring
@@ -716,6 +586,17 @@ achievementButton.addEventListener("click", () => {
     const achievementsList = document.getElementById("achievements");
     achievementsList.classList.toggle("active"); // Make list visible
 });
+
+// ---- Initialization ----
+// Passive Shadow gain
+setInterval(() => {
+    let shadowGain = shadowsPerSec / 10;
+    shadows = shadows + shadowGain;
+    lifetimeShadows = lifetimeShadows + shadowGain;
+    updatePhantoms();
+    updateDisplay();
+    checkAchievements();
+}, 100); // Update every 100ms
 
 updateDisplay();
 updateNinjaStats();

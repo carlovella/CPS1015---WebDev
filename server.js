@@ -3,11 +3,11 @@ const app = express();
 const fs = require('fs');
 
 // File to store player data
-const dataFile = 'package.json';
+const dataFile = 'data.json';
 // Object to store data
 let playerDataStore = {};
 
-// Use static frontend files (index.html, logic.js, style.css) and  requests from JSON
+// Middleware to serve static frontend files and parse JSON requests
 app.use(express.static('.'));
 app.use(express.json());
 
