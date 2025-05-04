@@ -389,7 +389,7 @@ button, .ninja_button,
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
-#saveConfirmation.show {
+#saveGameText.show {
     display: block;
     opacity: 1;
 }
@@ -456,7 +456,12 @@ button, .ninja_button,
     }
     .ninja_section{
         /* Stacking ninjas vertically on mobile */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         flex: 1 1 100%;
+        gap: 10px;
     }
     .ninja_grid{
         justify-content: center;

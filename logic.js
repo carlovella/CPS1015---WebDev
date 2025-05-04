@@ -142,7 +142,7 @@ function saveGame(){
         speedLevel: speedLevel,
         speedCost: (typeof speedCost === 'number') ? speedCost : 0, // Checks if speedCost is a number or 'Maxed'
         stealthLevel: stealthLevel,
-        stealthCost: (typeof stealthCost === 'number') ? stealthCost : 0, // Checks if stealthCost is a number of 'Maxed'
+        stealthCost: (typeof stealthCost === 'number') ? stealthCost : 0, // Checks if stealthCost is a number or 'Maxed'
         tier1Purchased: tier1Purchased,
         tier2Purchased: tier2Purchased,
         tier3Purchased: tier3Purchased,
@@ -153,7 +153,7 @@ function saveGame(){
         nextPhantomThreshold: nextPhantomThreshold
     };
 
-    // Disable save button to prevent multiple clicks
+    // Disable save button to prevent multiple clicks in a row
     if(saveGameButton){
         saveGameButton.disabled = true;
     }
