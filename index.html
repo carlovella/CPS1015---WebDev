@@ -10,7 +10,7 @@
 <body>
     <!-- Achievements List -->
     <div class = "achievements-container">
-        <button id = "achievements_button"> 🏆 Achievements 🏆</button>
+        <button id = "achievements_button" aria-label = "Show Achievements List"> 🏆 Achievements 🏆</button>
         <div id = "achievements">
             <!-- Achievements -->
             <div class = "achievement_item" id = "shadowCollectorI">
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Achievements Popup -->
-    <div id = "achievement-popup">
+    <div id = "achievement-popup" aria-live = "polite">
         <span id = "achievement_text"></span>
     </div>
 
@@ -61,7 +61,7 @@
             <p id = "shadowCounter">0</p>
             <p class = "altText">Shadows/click: <span id = "shadowsPerClick">1</span></p>
             <p class = "altText">Shadows/sec: <span id = "shadowsPerSec">0</span></p>
-            <button id = "gainShadow">Gain Shadow</button>
+            <button id = "gainShadow" aria-label = "Gain shadow per click">Gain Shadow</button>
         </div>
 
         <div class = "phantoms_box resources-section">
@@ -75,8 +75,8 @@
 
         <!-- Save Game Button -->
         <div class = "save_game_section">
-            <button id = "saveGameButton">Save Game</button>
-            <span id = "saveGameText">Game Saved!</span>
+            <button id = "saveGameButton" aria-label = "Save game progress">Save Game</button>
+            <span id = "saveGameText" aria-live = "polite">Game Saved!</span>
         </div>
 
         <!-- Ninjas -->
@@ -89,8 +89,8 @@
                     <p> Novice Ninja </p>
                     <p class = "altText">(+1 Shadow/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
-                    <img class = "ninja_png" src = "images/Novice%20Ninja.png" alt = "Novice Ninja">
-                    <button class = "ninja_button" data-type = "novice" title = "Novice: +1 Shadows/Sec">
+                    <img class = "ninja_png" src = "images/Novice%20Ninja.png" alt = "Novice Ninja holding a weapon">
+                    <button class = "ninja_button" data-type = "novice" title = "Novice: +1 Shadows/Sec" aria-label = "Hire Novice Ninja">
                         Hire: <span class = "cost">10</span> Shadows
                     </button>
                 </div>
@@ -100,8 +100,8 @@
                     <p> Rogue Ninja </p>
                     <p class = "altText">(+5 Shadows/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
-                    <img class = "ninja_png" src = "images/Rogue%20Ninja.png" alt = "Rogue Ninja">
-                    <button class = "ninja_button" data-type = "rogue" title = "Rogue: +5 Shadows/Sec">
+                    <img class = "ninja_png" src = "images/Rogue%20Ninja.png" alt = "Rogue Ninja in a dynamic pose">
+                    <button class = "ninja_button" data-type = "rogue" title = "Rogue: +5 Shadows/Sec" aria-label = "Hire Rogue Ninja">
                         Hire: <span class = "cost">100</span> Shadows
                     </button>
                 </div>
@@ -111,8 +111,8 @@
                     <p> Elite Ninja </p>
                     <p class = "altText">(+20 Shadows/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
-                    <img class = "ninja_png" src = "images/Elite%20Ninja.png" alt = "Elite Ninja">
-                    <button class = "ninja_button" data-type = "elite" title = "Elite: +20 Shadows/Sec">
+                    <img class = "ninja_png" src = "images/Elite%20Ninja.png" alt = "Elite Ninja with advanced weapons">
+                    <button class = "ninja_button" data-type = "elite" title = "Elite: +20 Shadows/Sec" aria-label = "Hire Elite Ninja">
                         Hire: <span class = "cost">1,000</span> Shadows
                     </button>
                 </div>
@@ -122,8 +122,8 @@
                     <p> Grandmaster Ninja </p>
                     <p class = "altText">(+100 Shadows/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
-                    <img class = "ninja_png" src = "images/Grandmaster%20Ninja.png" alt = "Grandmaster Ninja">
-                    <button class = "ninja_button" data-type = "grandmaster" title = "Grandmaster: +100 Shadows/Sec">
+                    <img class = "ninja_png" src = "images/Grandmaster%20Ninja.png" alt = "Grandmaster Ninja in Shadowy Area">
+                    <button class = "ninja_button" data-type = "grandmaster" title = "Grandmaster: +100 Shadows/Sec" aria-label = "Hire Grandmaster Ninja">
                         Hire: <span class = "cost">10,000</span> Shadows
                     </button>
                 </div>
@@ -139,7 +139,7 @@
                 <p>Speed</p>
                 <p class = "altText">(+5 Shadows/CLick)</p>
                 <p class = "altText">Level: <span id = "speed_level"></span> /10</p>
-                <button id = "speed_upgrade_button">
+                <button id = "speed_upgrade_button" aria-label = "Upgrade Speed Level">
                     <span>Upgrade: <span id = "speed_cost">500</span> Shadows</span>
                 </button>
             </div>
@@ -149,7 +149,7 @@
                 <p>Stealth</p>
                 <p class = "altText">(+10% Ninja Shadows/Sec)</p>
                 <p class = "altText">Level: <span id = "stealth_level"></span> /10</p>
-                <button id = "stealth_upgrade_button">
+                <button id = "stealth_upgrade_button" aria-label = "Upgrade Stealth Level">
                     <span>Upgrade: <span id = "stealth_cost">500</span> Shadows</span>
                 </button>
             </div>
@@ -162,23 +162,28 @@
                 <div class = "tiers-grid">
                     <!-- Tier 1 -->
                     <div class = "prestige_section">Tier 1: +50% Ninja Shadows/Sec
-                        <button id = "tier1Button"> Buy: 1 Phantom</button>
+                        <button id = "tier1Button" aria-label = "But Tier 1 for 1 phantom to increase ninjas shadows per second by 50 percent">
+                            Buy: 1 Phantom</button>
                     </div>
                     <!-- Tier 2 -->
                     <div class = "prestige_section">Tier 2: 20% Faster Phantom Gain
-                        <button id = "tier2Button"> Buy: 2 Phantoms</button>
+                        <button id = "tier2Button" aria-label = "But Tier 2 for 2 phantoms reduce phantom cost by 20 percent">
+                            Buy: 2 Phantoms</button>
                     </div>
                     <!-- Tier 3 -->
                     <div class = "prestige_section">Tier 3: +50% Shadows/Click
-                        <button id = "tier3Button"> Buy: 3 Phantoms</button>
+                        <button id = "tier3Button" aria-label = "But Tier 3 for 3 phantoms to increase shadows per click by 50 percent">
+                            Buy: 3 Phantoms</button>
                     </div>
                     <!-- Tier 4 -->
                     <div class = "prestige_section">Tier 4: Upgrades Cost 30% less
-                        <button id = "tier4Button"> Buy: 4 Phantoms</button>
+                        <button id = "tier4Button" aria-label = "But Tier 4 for 5 phantoms to reduce upgrade costs by 30 percent">
+                            Buy: 4 Phantoms</button>
                     </div>
                     <!-- Tier 5 -->
                     <div class = "prestige_section">Tier 5: Ninjas Cost 30% less
-                        <button id = "tier5Button"> Buy: 5 Phantoms</button>
+                        <button id = "tier5Button" aria-label = "But Tier 5 for 5 phantoms to reduce ninja costs by 30 percent">
+                            Buy: 5 Phantoms</button>
                     </div>
                 </div>
             </div>
