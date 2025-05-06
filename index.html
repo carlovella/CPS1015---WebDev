@@ -9,83 +9,84 @@
 </head>
 <body>
     <!-- Achievements List -->
-    <div class = "achievements-container">
+    <aside class = "achievements-container">
         <button id = "achievements_button" aria-label = "Show Achievements List"> 🏆 Achievements 🏆</button>
-        <div id = "achievements">
+        <section id = "achievements">
             <!-- Achievements -->
-            <div class = "achievement_item" id = "shadowCollectorI">
+            <article class = "achievement_item" id = "shadowCollectorI">
                 <p>Shadow Collector I:</p> Collect 1,000 Shadows (<span class = "status">Locked</span>)
-            </div>
-            <div class = "achievement_item" id = "shadowCollectorII">
+            </article>
+            <article class = "achievement_item" id = "shadowCollectorII">
                 <p>Shadow Collector II:</p> Collect 100,000 Shadows (<span class = "status">Locked</span>)
-            </div>
-            <div class = "achievement_item" id = "shadowCollectorIII">
+            </article>
+            <article class = "achievement_item" id = "shadowCollectorIII">
                 <p>Shadow Collector III:</p> Collect 10,000,000 Shadows (<span class = "status">Locked</span>)
-            </div>
-            <div class = "achievement_item" id = "phantomSeeker">
+            </article>
+            <article class = "achievement_item" id = "phantomSeeker">
                 <p>Phantom Seeker:</p> Collect 3 Phantoms (<span class = "status">Locked</span>)
-            </div>
-            <div class = "achievement_item" id = "ninjaRecruiterI">
+            </article>
+            <article class = "achievement_item" id = "ninjaRecruiterI">
                 <p>Ninja Recruiter I:</p> Hire 10 ninjas (<span class = "status">Locked</span>)
-            </div>
-            <div class = "achievement_item" id = "ninjaRecruiterII">
+            </article>
+            <article class = "achievement_item" id = "ninjaRecruiterII">
                 <p>Ninja Recruiter II:</p> Hire 50 ninjas (<span class = "status">Locked</span>)
-            </div>
-            <div class = "achievement_item" id = "ninjaRecruiterIII">
+            </article>
+            <article class = "achievement_item" id = "ninjaRecruiterIII">
                 <p>Ninja Recruiter III:</p> Hire 100 ninjas (<span class = "status">Locked</span>)
-            </div>
-            <div class = "achievement_item" id = "speedStalker">
+            </article>
+            <article class = "achievement_item" id = "speedStalker">
                 <p>Speed Stalker:</p> Max the Speed upgrade (<span class = "status">Locked</span>)
-            </div>
-            <div class = "achievement_item" id = "stealthMaster">
+            </article>
+            <article class = "achievement_item" id = "stealthMaster">
                 <p>Stealth Master:</p> Max the Stealth upgrade (<span class = "status">Locked</span>)
-            </div>
-            <div class = "achievement_item" id = "shadowRebirth">
+            </article>
+            <article class = "achievement_item" id = "shadowRebirth">
                 <p>Shadow Rebirth:</p> Prestige for the first time (<span class = "status">Locked</span>)
-            </div>
-        </div>
-
-    </div>
+            </article>
+        </section>
+    </aside>
 
     <!-- Achievements Popup -->
-    <div id = "achievement-popup" aria-live = "polite">
+    <section id = "achievement-popup" aria-live = "polite">
         <span id = "achievement_text"></span>
-    </div>
+    </section>
 
-    <h1>Rise of the Shadow Ninja</h1>
+    <header>
+        <h1>Rise of the Shadow Ninja</h1>
+    </header>
 
-    <div class = "container">
-        <div class = "box resources-section">
+    <main class = "container">
+        <section class = "box resources-section">
             <!-- Resources -->
             <p>🌀 Shadows 🌀: </p>
             <p id = "shadowCounter">0</p>
             <p class = "altText">Shadows/click: <span id = "shadowsPerClick">1</span></p>
             <p class = "altText">Shadows/sec: <span id = "shadowsPerSec">0</span></p>
             <button id = "gainShadow" aria-label = "Gain shadow per click">Gain Shadow</button>
-        </div>
+        </section>
 
-        <div class = "phantoms_box resources-section">
+        <section class = "phantoms_box resources-section">
             <p>👻 Phantoms 👻: <span id = "phantomCounter">0</span></p>
             <p class = "altText"> Shadows to next Phantom: </p>
             <p id = "progressText">  0/500000 (0%)</p>
             <div id = "progressBox">
                 <div id = "progressBar"></div>
             </div>
-        </div>
+        </section>
 
         <!-- Save Game Button -->
-        <div class = "save_game_section">
+        <section class = "save_game_section">
             <button id = "saveGameButton" aria-label = "Save game progress">Save Game</button>
             <span id = "saveGameText" aria-live = "polite">Game Saved!</span>
-        </div>
+        </section>
 
         <!-- Ninjas -->
-        <div class = "ninjas_box ninjas-section">
+        <section class = "ninjas_box ninjas-section">
             <p>🥷🏽 Ninjas 🥷🏽</p>
             <div class = "ninja_grid">
 
                 <!-- Novice Ninja -->
-                <div class = "ninja_section">
+                <article class = "ninja_section">
                     <p> Novice Ninja </p>
                     <p class = "altText">(+1 Shadow/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
@@ -93,10 +94,10 @@
                     <button class = "ninja_button" data-type = "novice" title = "Novice: +1 Shadows/Sec" aria-label = "Hire Novice Ninja">
                         Hire: <span class = "cost">10</span> Shadows
                     </button>
-                </div>
+                </article>
 
                 <!-- Rogue Ninja -->
-                <div class = "ninja_section">
+                <article class = "ninja_section">
                     <p> Rogue Ninja </p>
                     <p class = "altText">(+5 Shadows/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
@@ -104,10 +105,10 @@
                     <button class = "ninja_button" data-type = "rogue" title = "Rogue: +5 Shadows/Sec" aria-label = "Hire Rogue Ninja">
                         Hire: <span class = "cost">100</span> Shadows
                     </button>
-                </div>
+                </article>
 
                 <!-- Elite Ninja -->
-                <div class = "ninja_section">
+                <article class = "ninja_section">
                     <p> Elite Ninja </p>
                     <p class = "altText">(+20 Shadows/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
@@ -115,10 +116,10 @@
                     <button class = "ninja_button" data-type = "elite" title = "Elite: +20 Shadows/Sec" aria-label = "Hire Elite Ninja">
                         Hire: <span class = "cost">1,000</span> Shadows
                     </button>
-                </div>
+                </article>
 
                 <!-- Grandmaster Ninja -->
-                <div class = "ninja_section">
+                <article class = "ninja_section">
                     <p> Grandmaster Ninja </p>
                     <p class = "altText">(+100 Shadows/Sec)</p>
                     <p class = "altText"> Amount: <span class = "count">0</span></p>
@@ -126,69 +127,70 @@
                     <button class = "ninja_button" data-type = "grandmaster" title = "Grandmaster: +100 Shadows/Sec" aria-label = "Hire Grandmaster Ninja">
                         Hire: <span class = "cost">10,000</span> Shadows
                     </button>
-                </div>
+                </article>
             </div>
-        </div>
+        </section>
 
         <!-- Upgrades -->
-        <div class = "upgrades_box upgrades-section">
+        <section class = "upgrades_box upgrades-section">
             <p>⚔️ Upgrades ⚔️</p>
 
             <!-- Speed -->
-            <div class = "upgrade_section">
+            <article class = "upgrade_section">
                 <p>Speed</p>
                 <p class = "altText">(+5 Shadows/CLick)</p>
                 <p class = "altText">Level: <span id = "speed_level"></span> /10</p>
                 <button id = "speed_upgrade_button" aria-label = "Upgrade Speed Level">
                     <span>Upgrade: <span id = "speed_cost">500</span> Shadows</span>
                 </button>
-            </div>
+            </article>
 
             <!-- Stealth -->
-            <div class = "upgrade_section">
+            <article class = "upgrade_section">
                 <p>Stealth</p>
                 <p class = "altText">(+10% Ninja Shadows/Sec)</p>
                 <p class = "altText">Level: <span id = "stealth_level"></span> /10</p>
                 <button id = "stealth_upgrade_button" aria-label = "Upgrade Stealth Level">
                     <span>Upgrade: <span id = "stealth_cost">500</span> Shadows</span>
                 </button>
-            </div>
-        </div>
+            </article>
+        </section>
 
         <!-- Prestige -->
-        <div class = "tiers-box">
+        <section class = "tiers-box">
             <div class = "tiers">
                 <p>🌟 Prestige Tiers 🌟 </p>
                 <div class = "tiers-grid">
                     <!-- Tier 1 -->
-                    <div class = "prestige_section">Tier 1: +50% Ninja Shadows/Sec
-                        <button id = "tier1Button" aria-label = "But Tier 1 for 1 phantom to increase ninjas shadows per second by 50 percent">
+                    <article class = "prestige_section">Tier 1: +50% Ninja Shadows/Sec
+                        <button id = "tier1Button" aria-label = "Buy Tier 1 for 1 phantom to increase ninjas shadows per second by 50 percent">
                             Buy: 1 Phantom</button>
-                    </div>
+                    </article>
                     <!-- Tier 2 -->
-                    <div class = "prestige_section">Tier 2: 20% Faster Phantom Gain
-                        <button id = "tier2Button" aria-label = "But Tier 2 for 2 phantoms reduce phantom cost by 20 percent">
+                    <article class = "prestige_section">Tier 2: 20% Faster Phantom Gain
+                        <button id = "tier2Button" aria-label = "Buy Tier 2 for 2 phantoms reduce phantom cost by 20 percent">
                             Buy: 2 Phantoms</button>
-                    </div>
+                    </article>
                     <!-- Tier 3 -->
-                    <div class = "prestige_section">Tier 3: +50% Shadows/Click
-                        <button id = "tier3Button" aria-label = "But Tier 3 for 3 phantoms to increase shadows per click by 50 percent">
+                    <article class = "prestige_section">Tier 3: +50% Shadows/Click
+                        <button id = "tier3Button" aria-label = "Buy Tier 3 for 3 phantoms to increase shadows per click by 50 percent">
                             Buy: 3 Phantoms</button>
-                    </div>
+                    </article>
                     <!-- Tier 4 -->
-                    <div class = "prestige_section">Tier 4: Upgrades Cost 30% less
-                        <button id = "tier4Button" aria-label = "But Tier 4 for 5 phantoms to reduce upgrade costs by 30 percent">
+                    <article class = "prestige_section">Tier 4: Upgrades Cost 30% less
+                        <button id = "tier4Button" aria-label = "Buy Tier 4 for 5 phantoms to reduce upgrade costs by 30 percent">
                             Buy: 4 Phantoms</button>
-                    </div>
+                    </article>
                     <!-- Tier 5 -->
-                    <div class = "prestige_section">Tier 5: Ninjas Cost 30% less
-                        <button id = "tier5Button" aria-label = "But Tier 5 for 5 phantoms to reduce ninja costs by 30 percent">
+                    <article class = "prestige_section">Tier 5: Ninjas Cost 30% less
+                        <button id = "tier5Button" aria-label = "Buy Tier 5 for 5 phantoms to reduce ninja costs by 30 percent">
                             Buy: 5 Phantoms</button>
-                    </div>
+                    </article>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+
     <script src = "logic.js"></script>
 </body>
 </html>
